@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QQ</title>
+	<link rel="shortcut icon" href="images/favicon.ico" />
+    <link rel="stylesheet" href="Style/an.css" type="text/css">
+  	<script type="text/javascript">
+  		function hui(){
+  			document.getElementById('section').style.display='block';
+  			document.getElementById('section_01').style.display='none';
+  			document.getElementById('section_02').style.display='none';
+  			document.getElementById('section_03').style.display='none';
+  		}
+  		function lian(){
+  			document.getElementById('section').style.display='none';
+  			document.getElementById('section_01').style.display='none';
+  			document.getElementById('section_02').style.display='none';
+  			document.getElementById('section_03').style.display='block';
+  		}
+  		function fa(){
+  			document.getElementById('section').style.display='none';
+  			document.getElementById('section_01').style.display='block';
+  			document.getElementById('section_02').style.display='none';
+  			document.getElementById('section_03').style.display='none';
+  		}
+  		function she(){
+  			document.getElementById('section').style.display='none';
+  			document.getElementById('section_01').style.display='none';
+  			document.getElementById('section_02').style.display='block';
+  			document.getElementById('section_03').style.display='none';
+  		}
+  		function huan(){
+  			document.getElementById('dabeijing').style.backgroundImage="url(images/14.jpg)";
+  		}
+  		function huan_02(){
+  			document.getElementById('dabeijing').style.backgroundImage="url(images/12.jpg)";
+  		}
+  	</script>
+  	<link rel="stylesheet" type="text/css" href="Style/an_02.css"/>
+</head>
+<body>
+<section id="dabeijing">
+    <div>
+            <div id="header">
+                <div>
+                    <div>
+                    	<img src="images/g.jpg" width="50" height="50"/>
+                    </div>
+                    <ul>
+                    	<li>
+                    		<h1>
+                    			超越
+                    		</h1>
+                    	</li>
+                    	<li>
+                    		<p>
+                    			安卓
+                    		</p>
+                    	</li>
+                    </ul>
+                </div>
+                <div>
+                	<img src="images/icons_list.png"/>
+                </div>
+            </div>
+            
+            <div id="section">
+				<h1>
+					会话
+				</h1>
+				<div>
+					
+				</div>
+				<ul>
+					<li>
+						<img src="images/tab_icon_conversation_selected.png"/>
+						<a href="#" onclick="hui()">会话</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_contact.png"/>
+						<a href="#" onclick="lian()">联系人</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_plugin.png"/>
+						<a href="#" onclick="fa()">发现</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_setup.png"/>
+						<a href="#" onclick="she()">设置</a>
+					</li>
+				</ul>
+            </div>
+            <div id="section_01">
+				<h1>
+					发现
+				</h1>
+				<div>
+					<ul>
+						<li>
+							<img src="images/plugin_icon_qzone.jpg"/>
+							<span>QQ空间</span>
+						</li>
+						<li>
+							<img src="images/plugin_icon_qq_portal.png"/>
+							<span>腾讯网</span>
+						</li>
+						<li>
+							<img src="images/plugin_icon_qmail.jpg"/>
+							<span>QQ邮箱</span>
+						</li>
+					</ul>
+				</div>
+				<ul>
+					<li>
+						<img src="images/tab_icon_conversation.png"/>
+						<a href="#" onclick="hui()">会话</a>
+					</li>
+					<li style="border: 0px;">
+						<img src="images/tab_icon_contact.png"/>
+						<a href="#" onclick="lian()">联系人</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_plugin_selected.png"/>
+						<a href="#" onclick="fa()">发现</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_setup.png"/>
+						<a href="#" onclick="she()">设置</a>
+					</li>
+				</ul>
+            </div>
+            <div id="section_02">
+				<h1>
+					设置
+				</h1>
+				<div>
+						<div class="di">
+							<div style="width: 150px; float: left;">
+						<div>
+							<img src="images/g.jpg" width="40" height="40" />
+						</div>
+						<h1>
+							超越
+						</h1>
+					</div>
+					</div>
+					
+					<div>
+						<p>个性签名：<span>安卓</span></p>
+					</div>
+					<div>
+						<p>消息相关设置</p>
+					</div>
+					<div>
+						<p>关于QQ</p>
+						
+					</div>
+					<div>
+						<input type="button"  value="退出当前账号"/>
+					</div>
+				</div>
+				<ul>
+					<li>
+						<img src="images/tab_icon_conversation.png"/>
+						<a href="#" onclick="hui()">会话</a>
+					</li>
+					<li style="border: 0px;">
+						<img src="images/tab_icon_contact.png"/>
+						<a href="#" onclick="lian()">联系人</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_plugin.png"/>
+						<a href="#" onclick="fa()">发现</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_setup_selected.png"/>
+						<a href="#" onclick="she()">设置</a>
+					</li>
+				</ul>
+            </div>
+            <div id="section_03">
+				<h1>
+					联系人
+					<span><img src="images/title_search_icon.png" width="15" height="15" /></span>
+				</h1>
+				<div>
+					<ul>
+						<li>好友</li>
+						<li>群</li>
+						<li>讨论组</li>
+					</ul>
+					<ul class="peng">
+						<li><span>陌生人</span><span>19/72</span></li>
+						<li><span>朋友</span><span>8/19</span></li>
+						<li><span>家人</span><span>4/13</span></li>
+						<li><span>同学</span><span>10/53</span></li>
+						<li><span>黑名单</span><span>0/1</span></li>
+					</ul>
+				</div>
+				<ul>
+					<li>
+						<img src="images/tab_icon_conversation.png"/>
+						<a href="#" onclick="hui()">会话</a>
+					</li>
+					<li style="border: 0px;">
+						<img src="images/tab_icon_contact_selected.png"/>
+						<a href="#" onclick="lian()">联系人</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_plugin.png"/>
+						<a href="#" onclick="fa()">发现</a>
+					</li>
+					<li>
+						<img src="images/tab_icon_setup.png"/>
+						<a href="#" onclick="she()">设置</a>
+					</li>
+				</ul>
+            </div>
+            <div id="div" style="width:90%;postion:relative;margin-left:auto;margin-right:auto;">
+			<img src="images/1.jpg" alt="">
+			<img src="images/2.jpg" alt="">
+			<img src="images/3.jpg" alt="">
+			<img src="images/7.jpg" alt="">
+			<img src="images/7.jpg" alt="">
+			<img src="images/4.jpg" alt="">
+			<img src="images/6.jpg" alt="">
+		</div>
+            <div id="footer">
+				<ul>
+					<li><a href="#" onclick="huan()"><img src="images/arrow.png" /></a></li>
+					<li style="border: 0px;"><a href="#"onclick="huan_02()"><img src="images/arrow.png" /></a></li>
+					<li style="cursor: pointer;">意见反馈</li>
+				</ul>
+            </div>
+    </div>
+</section>
+</body>
+</html>

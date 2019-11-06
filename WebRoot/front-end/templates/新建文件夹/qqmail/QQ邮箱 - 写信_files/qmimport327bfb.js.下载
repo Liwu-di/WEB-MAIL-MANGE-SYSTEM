@@ -1,0 +1,2128 @@
+var QMImportAdaptor=(function(b){
+var c=getTop();
+function a(d)
+{
+var g=d.oContainer,n=d.sDefault||"",m=d.oItems,e=false;
+m.unshift({sId:"-1",sItemValue:n});
+c.insertHTML(g,"afterBegin",c.T(['<input ui-type="select_value" type="hidden" value="$sId$:$sItemValue$" />','<a ui-type="select_menu" ck="show_menu" href="javascript:;" class="btn_gray btn_select group_select">','<span ui-type="select_name" style="width:180px" class="btn_select_txt">$sItemValue$</span>','<span class="ico_select_s"></span>','</a>','<span ui-type="select_text" style="display:none;padding:0;" class="btn_gray btn_select group_select group_select_active">','<input class="btn_select_txt"  kd="select_save" type="text" />','<span class="ico_select_s"></span>','</span>']).replace(m[0].sItemValue?m[0]:m[1]));
+var j=c.finds('[ui-type="select_name"]',g)[0],l=c.finds('[ui-type="select_value"]',g)[0],i=c.finds('[ui-type="select_menu"]',g)[0],k=c.finds('[ui-type="select_text"]',g)[0],h=c.finds('[ui-type="select_text"] input',g)[0];
+h.onblur=function(){
+var s=this.value;
+o(s);
+};
+function r(s)
+{
+var w=j.clientWidth,u=i.clientWidth;
+c.show(i,!s);
+c.show(k,s);
+if(s)
+{
+h.style.width=w+"px";
+k.style.width=u+"px";
+}
+;
+}
+;function o(s)
+{
+var x=s||h.getAttribute("default")||"",u=m.length,w;
+for(var y=1;y<u;++y)
+{
+if(m[y].sItemValue==s)
+{
+q(m[y].sId);
+r(false);
+return;
+}
+}
+m[0].sItemValue=x;
+j.innerHTML=x;
+l.value=[m[0].sId,m[0].sItemValue].join(":");
+r(false);
+}
+;function p(s)
+{
+s&&!h.getAttribute("default")&&h.setAttribute("default",s);
+m[0].sItemValue=s;
+j.innerHTML=s;
+l.value=[m[0].sId,m[0].sItemValue].join(":");
+}
+;function f()
+{
+return l.value;
+}
+function q(s)
+{
+var w=s.length?s:"0",u=m.length;
+for(var x=0;x<u;++x)
+{
+if(m[x].sId==w)
+{
+j.innerHTML=m[x].sItemValue;
+l.value=[w,m[x].sItemValue].join(":");
+return;
+}
+}
+}
+;c.liveEvent(g,{rule:function(){
+return {click:{"show_menu":{bPropagable:false}},keydown:{"select_save":{bPropagable:false}}};
+},events:function(){
+return {"select_save":function(s,u){
+var w=u.value;
+if(s.keyCode==13)
+{
+o(w);
+}
+},"show_menu":function(s,u){
+var w=c.getEventTarget(s),y=(c.finds('[ui-type="select_name"]',c))[0];
+if(y.getAttribute("disabled")=='true')
+{
+return;
+}
+r(true);
+h.value=j.innerHTML;
+h.focus();
+h.select();
+e=true;
+var x=c.calcPos(k,"json");
+c.addClass(u,"btn_gray_active");
+new (c.QMMenu)({oEmbedWin:getTop(),sId:"contact_edit_select",nX:x.left+1,nY:x.top+u.offsetHeight+32,nWidth:200,nMaxItemView:10,oItems:m,nItemHeight:23,onitemclick:function(A){
+if(A==-1)
+{
+r(true);
+h.value=m[0].sItemValue;
+h.focus();
+h.select();
+e=true;
+}
+else{
+for(var B=0;B<m.length;B++)
+{
+if(A==m[B].sId)
+{
+j.innerHTML=m[B].sItemValue;
+l.value=[m[B].sId,m[B].sItemValue].join(":");
+break;
+}
+}
+}
+},onclose:function(A){
+c.rmClass(u,"btn_gray_active");
+}});
+}};
+}});
+return {set:p,get:f,setSelect:q};
+}
+;return {isBrowser:function(d){
+return {"ie":c.gbIsIE,"ff":c.gbIsFF,"chrome":c.gbIsChrome,"safari":c.gbIsSafari,"webkit":c.gbIsWebkit}[d]||false;
+},E:c.E,replaceUrl:c.cookQueryString,QMAjax:c.QMAjax,encodeURI:c.encodeURI,globalEval:c.globalEval,show:c.show,getSid:c.getSid,finds:c.finds,getPath:c.getPath,hiddenMsg:c.hiddenMsg,showInfo:c.showInfo,evalCss:c.evalCss,deleteCookie:c.deleteCookie,debug:c.debug,getCookie:c.getCookie,rmClass:c.rmClass,addClass:c.addClass,hasClass:c.hasClass,QMDialog:c.QMDialog,QMMenu:c.QMMenu,calcPos:c.calcPos,addEvent:c.addEvent,showError:c.showError,showInfo:c.showInfo,T:c.T,TE:c.TE,liveEvent:c.liveEvent,extend:c.extend,htmlEncode:c.htmlEncode,editSelect:a};
+})();
+var QMImport=(function(A,_aoUndefined){
+var QMModuleMgr=(function(A,_aoUndefined){
+var _oModules={},_oInstance={},_oImportsModules={},_fFixModuleName=function(_avModule){
+_avModule=_avModule||"";
+return typeof (_avModule)=="string"?_avModule:_avModule.id;
+},_oMgr={_fCreate:function(_avModule,_afHandel,_asSuper){
+var _oSuperClass=_asSuper&&_oModules[_asSuper],_sModuleName=_fFixModuleName(_avModule),_oClass=_oModules[_sModuleName]=function(){
+if(!_oImportsModules[_sModuleName])
+{
+_oImportsModules[_sModuleName]=this;
+}
+this.getModuleName=function(){
+return _sModuleName;
+};
+this.getSuperName=function(){
+return _asSuper||"";
+};
+this.setDriven=function(_aoEvt){
+this["__evt__"]=_aoEvt;
+};
+this.getDriven=function(){
+return this["__evt__"]||{};
+};
+arguments.length&&this.init_&&this.init_.apply(this,arguments);
+};
+_afHandel.call(_oClass.prototype=_oSuperClass?new _oSuperClass():{},_oSuperClass?_oSuperClass.prototype:{},QMModuleMgr);
+return _oClass;
+},_fUse:function(_avModule,_aoCfg){
+var _sModuleName=_fFixModuleName(_avModule);
+if(!_oInstance[_sModuleName])
+{
+_oInstance[_sModuleName]=new _oModules[_sModuleName](_aoCfg);
+}
+return this;
+},_fCmd:function(){
+var _sModuleName=_fFixModuleName(arguments[0]),_oParam=arguments[1];
+for(var i in _oInstance)
+{
+if(i==_sModuleName)
+{
+_oInstance[_sModuleName].action_.apply(_oInstance[_sModuleName],[_oParam]);
+break;
+}
+}
+return this;
+},_fMsg:function(){
+var _sMsgName=arguments[0];
+for(var i in _oInstance)
+{
+for(var _sMsg in _oInstance[i].getDriven()["msg"])
+{
+if(_sMsg==_sMsgName)
+{
+_oInstance[i].getDriven()["msg"][_sMsg].apply(_oInstance[i],[].slice.call(arguments,1));
+}
+}
+}
+return this;
+},_fWhisper:function(){
+var _sMsgName=arguments[0];
+for(var i in _oInstance)
+{
+for(var _sMsg in _oInstance[i].getDriven()["msg"])
+{
+if(_sMsg==_sMsgName&&_oInstance[i].isShow())
+{
+_oInstance[i].getDriven()["msg"][_sMsg].apply(_oInstance[i],[].slice.call(arguments,1));
+}
+}
+}
+return this;
+},_fClear:function(_avModule){
+var _sModuleName=_fFixModuleName(_avModule);
+if(_sModuleName)
+{
+if(_oInstance[_sModuleName])
+{
+_oInstance[_sModuleName].destory_();
+delete _oModules[_sModuleName];
+}
+}
+else{
+for(var i in _oInstance)
+{
+_oInstance[i].destory_();
+}
+for(var i in _oModules)
+{
+delete _oModules[i];
+}
+}
+},_fgetModuleClass:function(_sModuleName){
+return _oImportsModules[_sModuleName];
+}};
+_oMgr._fCreate("Base",function(_aoSuper,_aoMgr){
+this.init_=function(_aoCfg){
+var _oCfg=_aoCfg||{};
+if(!_oCfg.oContainer)
+{
+debug([this.getModuleName(),"\u6A21\u5757\u5BB9\u5668\u4E3A\u7A7A"].join(" "));
+}
+if(!_oCfg.oViewCenter)
+{
+debug([this.getModuleName(),"\u6A21\u5757view\u4E3A\u7A7A"].join(" "));
+}
+if(!_oCfg.oDataCenter)
+{
+debug([this.getModuleName(),"\u6A21\u5757data\u4E3A\u7A7A"].join(" "));
+}
+this.view=_oCfg.oViewCenter;
+this.data=_oCfg.oDataCenter;
+this._moDomContainer=_oCfg.oContainer;
+this.activate();
+};
+this.action_=function(){
+this.show();
+};
+this.destory_=function(){
+debug("destory_"+this.getModuleName());
+delete _oInstance[this.getModuleName()];
+this.view=_aoUndefined;
+this.data=_aoUndefined;
+this._moDomContainer=_aoUndefined;
+};
+this.register=function(){
+var _oSelf=this;
+var _oDrivens=[].slice.call(arguments,0),_oNewRule={},_fExtend=function(){
+if(_oDrivens.length)
+{
+var _oDriven=_oDrivens.shift();
+for(var i in _oDriven)
+{
+!_oNewRule[i]&&(_oNewRule[i]={});
+A.extend(_oNewRule[i],_oDriven[i]);
+}
+_fExtend();
+}
+else{
+_oSelf.setDriven(_oNewRule);
+}
+};
+_fExtend();
+};
+this.msg=function(){
+_oMgr._fMsg.apply(null,arguments);
+};
+this.cmd=function(){
+_oMgr._fCmd.apply(null,arguments);
+};
+this.wsp=function(){
+_oMgr._fWhisper.apply(null,arguments);
+};
+this.getModuleClass=function(_sModuleName){
+return _oMgr._fgetModuleClass.apply(arguments);
+};
+this.activate=function(){
+var _oSelfMod=this,_oEvt=this.getDriven(),_oRules={},_oEvents={};
+for(var i in _oEvt)
+{
+if(i!="msg")
+{
+_oRules[i]={};
+for(var _sName in _oEvt[i])
+{
+_oRules[i][_sName]={bPropagable:_oEvt[i][_sName].bPropagable||false};
+_oEvents[_sName]=function(_aoEvtHandler){
+return function(_aoEvt,_aoTarget){
+_aoEvtHandler.fHandle.apply(_oSelfMod,[_aoEvt,_aoTarget]);
+};
+}(_oEvt[i][_sName]);
+}
+}
+}
+;if(i&&_oSelfMod._moDomContainer)
+{
+A.liveEvent(_oSelfMod._moDomContainer,{rule:function(){
+return _oRules;
+},events:function(){
+return _oEvents;
+}});
+}
+};
+this.render=function(_asHtml){
+if(this._moDomContainer)
+this._moDomContainer.innerHTML=_asHtml;
+};
+this.isShow=function(){
+if(!this._moDomContainer)
+{
+return false;
+}
+return this._moDomContainer.style.display.toLowerCase()!="none";
+};
+this.show=function(){
+this._moDomContainer&&A.show(this._moDomContainer,true);
+};
+this.hide=function(){
+this._moDomContainer&&A.show(this._moDomContainer,false);
+};
+});
+return {create:_oMgr._fCreate,use:_oMgr._fUse,cmd:_oMgr._fCmd,msg:_oMgr._fMsg,wsp:_oMgr._fWhisper,clear:_oMgr._fClear,getModuleClass:_oMgr._fgetModuleClass};
+})(getTop());
+getTop().QMModuleMgr=QMModuleMgr;
+var QMOauthAdaptor=(function(_aoUndefined){
+var _oTop=getTop();
+return {isBrowser:function(_asType){
+return {"ie":_oTop.gbIsIE,"ff":_oTop.gbIsFF,"chrome":_oTop.gbIsChrome,"safari":_oTop.gbIsSafari,"webkit":_oTop.gbIsWebkit}[_asType]||false;
+},hiddenMsg:_oTop.hiddenMsg,showInfo:_oTop.showInfo,evalCss:_oTop.evalCss,deleteCookie:_oTop.deleteCookie,debug:_oTop.debug,getCookie:_oTop.getCookie,rmClass:_oTop.rmClass,addClass:_oTop.addClass,hasClass:_oTop.hasClass,QMDialog:_oTop.QMDialog,addEvent:_oTop.addEvent,T:_oTop.T,TE:_oTop.TE,extend:_oTop.extend};
+})();
+(function(A,_aoUndefined){
+var _oTop=getTop(),_sIdGoogleOauto,_sDialogTitle,_sImportName,_sCookieName,_oOauthParam,_oCallback,_oCallback,_sRedirectTmpl,_sRedirectS,_nTotalCnt=0,_oDataList=[],_oSuccList=[],_oErrList=[],_bIsActivate=true,_nIntervalId=0,_oXHR,_nTimerId=0,_oDefaultOauthParam={response_type:"code",access_type:"offline",approval_prompt:"force",hl:"zh-CN",from_login:"1",as:"-40afd423cf3b6bab",scope:encodeURIComponent("http://www.google.com/calendar/feeds"),client_id:"146110540336-rhuf2moio442p1tnhllq6qbr3grnfk7v.apps.googleusercontent.com",redirect_uri:""},_sCssCode=['.rss_import__oOauthle{padding:40px 25px 26px;}','.rss_import__oOauthle .event_left{display:inline-block;width:100px;margin-right:5px;text-align:right;color:#000;}','.rss_import__oOauthle .event_row{margin:0 0 10px;}','.rss_import__oOauthle .event_right{padding:22px 0 0 0;}','.rss_import__oOauthle .input_text{width:190px;} ','.rss_import_opr .invisible{ visibility:hidden; }'].join("\n"),_oTmpl={importing:A.T(['<div class="event_row">\u6B63\u5728\u5BFC\u5165$importName$\u7684\u6570\u636E ($num$/$total$)</div>','<div class="event_row" style="width:392px;border:1px solid #999;padding:2px;">','<div style="width:$percent$; background:#acacac; height:10px;"></div>','</div>']),loading:A.T(['<div class="event_row" style="width:392px;">\u6B63\u5728\u8BFB\u53D6$importName$\u7684\u6570\u636E</div>','<div class="event_row" style="width:392px;border:1px solid #999;padding:2px;">','<div style="height:10px;background:url(/zh_CN/htmledition/images/oauth_loading.gif) no-repeat;"></div>','</div>']),denny:A.T(['<div class="event_row" style="line-height: 20px;">\u5DF2\u53D6\u6D88\u6388\u6743QQ\u90AE\u7BB1\u8BBF\u95EE\u60A8\u7684$importName$\u5E10\u53F7\u3002</div>']),retry:A.T(['<div class="event_row" style="line-height: 20px;">','<div >\u6709 $cnt$ \u6761\u6570\u636E\u5BFC\u5165\u5931\u8D25</div>','</div>']),failed:A.T(['<div class="event_row" style="line-height: 20px;">','<div >\u6570\u636E\u5BFC\u5165\u5931\u8D25</div>','</div>']),background:A.T(['<div nocheck="true" id="draw" class="dialog_content rss_import__oOauthle">','<div class="event_row" style="line-height: 20px;">','\u8BF7\u5728\u65B0\u7A97\u53E3\u6388\u6743QQ\u90AE\u7BB1\u8BBF\u95EE\u60A8\u7684$importName$\u5E10\u53F7\uFF0C\u6388\u6743\u6210\u529F\u540E\u5C06\u81EA\u52A8\u5BFC\u5165\u5176\u6570\u636E\u3002','</div>','</div>','<div class="dialog_operate rss_import_opr">','<a href="javascript:;" class="btn_blue invisible" >\u5173\u95ED</a>','<a href="javascript:;" id="geRetryBtn" class="btn_blue hide" >\u91CD\u8BD5</a>','<a href="javascript:;" id="geConfirmBtn" class="btn_blue hide" >\u786E\u5B9A</a>','<a href="javascript:;" id="geCancelBtn" class="btn_gray ">\u53D6\u6D88</a>','</div>'])},_oOauth={};
+_oOauth.parseObjToQueryStr=function(_aoObj){
+var result=[];
+for(var i in _aoObj)
+{
+result.push([i,"=",_aoObj[i]].join(""));
+}
+return [result.join("&")].join("");
+};
+_oOauth.makeQueryUrl=function(_asUrl,_aoObj){
+return [_asUrl,"?",_oOauth.parseObjToQueryStr(_aoObj)].join("");
+};
+_oOauth.view=function(_asType,_aoData){
+if(!A.QMDialog(_sIdGoogleOauto))
+{
+return;
+}
+if(_asType=="importing"&&_aoData&&_aoData.num<0)
+{
+return;
+}
+var _oDomBtnRetry=A.QMDialog(_sIdGoogleOauto).S("geRetryBtn"),_oDomBtnConfirm=A.QMDialog(_sIdGoogleOauto).S("geConfirmBtn"),_oDomBtnCancel=A.QMDialog(_sIdGoogleOauto).S("geCancelBtn");
+!A.hasClass(_oDomBtnRetry,"hide")&&A.addClass(_oDomBtnRetry,"hide");
+!A.hasClass(_oDomBtnConfirm,"hide")&&A.addClass(_oDomBtnConfirm,"hide");
+!A.hasClass(_oDomBtnCancel,"hide")&&A.addClass(_oDomBtnCancel,"hide");
+A.QMDialog(_sIdGoogleOauto).S("draw").innerHTML=_oTmpl[_asType].replace(_aoData||{});
+switch(_asType)
+{case "denny":
+A.rmClass(_oDomBtnConfirm,"hide");
+break;
+case "retry":
+A.rmClass(_oDomBtnRetry,"hide");
+case "loading":
+case "importing":
+if(_asType=="denny")
+{
+A.hiddenMsg();
+}
+A.rmClass(_oDomBtnCancel,"hide");
+}
+};
+_oOauth.oauth=function(_aoCallback){
+var _sOauthLink=_oOauth.makeQueryUrl("https://accounts.google.com/o/oauth2/auth",A.extend(_oDefaultOauthParam,_oOauthParam));
+if(!A.isBrowser("ie")&&window.showModalDialog)
+{
+showModalDialog(_sOauthLink,'',"dialogwidth:750px; dialogheight:550px; center:1; scroll:1; unadorned:1;");
+}
+else{
+window.open(_sOauthLink,'',"height:750; width:550; status:no; menubar:no; toolbar:no;");
+}
+_nIntervalId=setInterval(function(){
+var _sCode=A.getCookie(_sCookieName);
+debug(_sCode);
+_sCode&&A.debug(_sCode);
+if(_sCode)
+{
+clearInterval(_nIntervalId);
+A.deleteCookie(_sCookieName);
+if(_sCode=="false")
+{
+if(_aoCallback.onFailed)
+{
+_aoCallback.onFailed();
+}
+else{
+_oOauth.view("denny",{importName:_sImportName});
+A.addEvent(A.QMDialog(_sIdGoogleOauto).S("geConfirmBtn"),"click",function(){
+_oOauth.close();
+});
+}
+}
+else{
+if(_aoCallback.onSuccess)
+{
+_aoCallback.onSuccess(_sCode);
+}
+else{
+_oOauth.view("loading",{importName:_sImportName});
+}
+}
+}
+},100);
+};
+_oOauth.cancel=function(){
+if(_oSuccList.length)
+{
+A.showInfo("\u5DF2\u53D6\u6D88\u5BFC\u5165\u6570\u636E");
+}
+else{
+A.hiddenMsg();
+}
+_oOauth.close();
+};
+_oOauth.retry=function(){
+_oOauth.init(_oErrList);
+};
+_oOauth.show=function(){
+clearInterval(_nIntervalId);
+A.deleteCookie(_sCookieName);
+_bIsActivate=true;
+_sCssCode&&A.evalCss(_sCssCode,_oTop,_sIdGoogleOauto);
+new A.QMDialog({sId:_sIdGoogleOauto,sTitle:_sDialogTitle,nWidth:450,sBodyHtml:_oTmpl["background"].replace({importName:_sImportName}),bAnimation:false,onshow:function(){
+var _oDlg=this;
+},onclose:function(){
+_bIsActivate=false;
+clearInterval(_nIntervalId);
+clearTimeout(_nTimerId);
+_nTotalCnt=0;
+_oDataList=[];
+_oErrList=[];
+_oSuccList=[];
+_oCallback.onClose&&_oCallback.onClose();
+}});
+};
+_oOauth.hide=function(){
+A.QMDialog(_sIdGoogleOauto).hide();
+};
+_oOauth.close=function(){
+A.QMDialog(_sIdGoogleOauto).close();
+_oXHR&&_oXHR.abort&&_oXHR.abort();
+};
+_oOauth.initParam=function(_aoParam){
+_sIdGoogleOauto=_aoParam.sUid||"google_oauth";
+_sDialogTitle=_aoParam.sTitle||"\u6388\u6743";
+_sImportName=_aoParam.sLabel||"Google";
+_sCookieName="gcode_"+_aoParam.sAlias||"";
+_oOauthParam=_aoParam.oOauthParam||{};
+_oCallback=_aoParam.oCallback;
+_sRedirectTmpl=_aoParam.sRedirectTmpl||"google_oauth",_sRedirectS=_aoParam.sAlias||"";
+_aoParam.sClientID&&(_oOauthParam.client_id=_aoParam.sClientID);
+_sRedirectUri=_aoParam.sRedirectUri||[getTop().location.protocol,"//mail.qq.com/cgi-bin/readtemplate?check=false"].join("");
+_oDefaultOauthParam.redirect_uri=encodeURIComponent([_sRedirectUri,"&t=",_sRedirectTmpl,"&s=",_sRedirectS].join(""));
+};
+_oOauth._initEvent=function(){
+A.addEvent(A.QMDialog(_sIdGoogleOauto).S("geConfirmBtn"),"click",function(){
+_oOauth.close();
+});
+A.addEvent(A.QMDialog(_sIdGoogleOauto).S("geCancelBtn"),"click",function(){
+_oOauth.close();
+});
+};
+_oOauth.doOauth=function(_aoParam){
+_oOauth.initParam(_aoParam);
+_oOauth.show();
+_oOauth._initEvent();
+_oOauth.oauth(_oCallback);
+};
+window['QMOauth']=_oOauth;
+})(QMOauthAdaptor);
+(function(A,_aoUndefined){
+QMModuleMgr.create("ContactOpt.Base",function(_aoSuper,_aoMgr){
+var _oTop=getTop(),_sTmpId="",_sDialog_UID="qMDiAlog_iMpoRt",_sDialogTitle,_sCssCode=A.T(['.qqmail_import{}.qqmail_import .main{padding:40px 25px 26px;}.qqmail_import .event_left{display:inline-block;width:100px;margin-right:5px;text-align:right;color:#000;}.qqmail_import .event_row{margin:0 0 10px;}.qqmail_import .event_right{padding:22px 0 0 0;}.qqmail_import .input_text{width:190px;}.qqmail_import_opr .invisible{visibility:hidden;}.qqmail_import .loading{display:none;position:absolute;z-index:999;left:0;right:0;top:36px;bottom:37px;background:#fff;opacity:0.5;filter:alpha(opacity=50);}.stat_loading .loading{display:block;}.btn_select input.btn_select_txt{height:20px;width:100px;border-width:1px;}.c_popform .c_pf_li{margin-bottom:20px;position:relative;*zoom:1;}.c_popform .c_pf_la{width:74px;float:left;text-align:right;color:#000;vertical-align:middle;font-size:14px;}.c_popform .c_pf_text{height:14px;width:260px;border:1px solid #B3B3B3;background:#FFF;padding:7px 5px;box-shadow:inset 1px 1px 1px rgba(0,0,0,0.1);position:relative;z-index:2;}.c_popform .c_pf_text_id{width:148px;overflow:hidden;border-right-width:113px;}.c_popform .c_pf_eaddr{display:inline-block;height:28px;width:111px;background-color:#F5F5F5;border:1px solid #B3B3B3;position:absolute;top:0px;right:44px;*top:1px;_right:41px;line-height:28px;cursor:pointer;overflow:hidden;z-index:2;}.c_popform .c_pf_eaddr .c_pf_domain{height:100%;width:95px;display:inline-block;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;}.c_popform .focus_parent .c_pf_text_id{border-color:#6cb9ef;border-right-color:#B3B3B3;}.c_popform .focus_parent .c_pf_eaddr{border-color:#6cb9ef;border-left-color:#B3B3B3;}.c_pf_li .focus{border-color:#6cb9ef;}.c_ft_icons{display:inline-block;width:20px;height:20px;vertical-align:middle;font-size:0;background:url($images_path$webp/new_contact/new_contact_icons1e9c5d.png) no-repeat 0 0;}.c_select{position:absolute;right:5px;top:9px;width:7px;height:11px;background-position:-1px -1px;margin-left:5px;}.dia_att_sip{height:1px;overflow:hidden;margin:0 44px;border-bottom:1px solid #FFF;background:#D9D9D9;background-image:-o-linear-gradient(left top,#FFF 0%,#C2C2C2 50%,#FFF 100%);background-image:-moz-linear-gradient(left top,#FFF 0%,#C2C2C2 50%,#FFF 100%);background-image:-webkit-gradient(linear,left top,right bottom,color-stop(0,#FFF),color-stop(0.5,#C2C2C2),color-stop(1,#FFF));}.att_btn_wrap{margin:80px auto;height:30px;}.dia_att_cho{text-align:center;}:root .dia_att_cho .btn_blue{line-height:28pxurl(0);}.dia_att_cho .btn_blue{width:122px;line-height:28px;line-height:26pxurl(0);font-size:12px;}.c_checkbox{vertical-align:middle;margin:-2px 5px 0 0;}.dialog_function dl{margin:0;padding:12px 0;border-bottom:1px solid #DDD;}.dialog_function dl:last-child{border-bottom:none;}.dialog_function dt{margin-left:18px;line-height:28px;}.dialog_function dd{margin-left:36px;line-height:20px;}a.c_item_select{display:inline-block;padding:0 5px;}a.c_item_select,a.c_item_select:visited,a.c_item_select:hover,a.c_item_select:active{color:#000;text-decoration:none;}a.c_item_select:hover{background-color:#ebebeb;}.c_item_select .c_item_mov{height:16px;width:16px;margin:-1px 0 0 4px;vertical-align:middle;background:url($images_path$webp/bot_mov1e9c5d.gif);display:none;}a.c_item_select:hover .c_item_mov{display:inline-block;}.c_b_unselected a.c_item_select,.c_b_unselected a.c_item_select:hover{color:#999;background-color:#f9f9f9;cursor:default;}.c_b_unselected a.c_item_select .c_item_mov,.c_b_unselected a.c_item_select:hover .c_item_mov{display:none;}.hand_merge .img_select{height:40px;padding:4px 25px 4px 4px;}.hand_merge .img_select .ico_select_s{}.hand_merge .ico_delete{float:right;width:14px;height:16px;margin-top:3px;background:#999;overflow:hidden;cursor:pointer;}.qm_dialog .group_select{border-radius:0;color:#494949;border-color:#b3b3b3;height:28px;line-height:28px;font-size:12px;font-family:"lucida Grande",Verdana;background:none;background-color:#fff;filter:none;cursor:pointer;_outline:none;padding:0 20px 0 0;text-align:left;}.qm_dialog .group_select:active,.qm_dialog .group_select:focus,.qm_dialog .group_select_active,.qm_dialog .btn_gray_active,.qm_dialog .btn_gray_active:active,.qm_dialog .btn_gray_active:focus{border-color:#6cb9ef;background:#fff;box-shadow:none;filter:none;outline:none;text-align:left;}.qm_dialog .group_select .ico_select_s,.qm_dialog .group_select:active .ico_select_s{width:8px;height:11px;top:9px;right:5px;background:url($images_path$webp/new_contact/new_contact_icons1e9c5d.png) 0 0;}.qm_dialog .group_select_active{width:110px;}.qm_dialog .group_select .btn_select_txt{display:inline-block;line-height:14px;height:14px;padding:7px 4px;margin:0;border:none;background:#fff;max-width:242px;width:130px;}.qm_dialog .group_select input.btn_select_txt{width:100px;position:absolute;top:0;left:0;}']).replace({"images_path":A.getPath("images")}),_nAJAX_TIMER=0,_oAJAX;
+this.register({msg:{"IMPORT_SHOW":function(){
+this._mbRunning=false;
+this.onshow&&this.onshow();
+},"IMPORT_PROCESS":function(){
+this._mbRunning=false;
+this.onprocess&&this.onprocess();
+},"IMPORT_ADD_TASK":function(_asTaskId){
+this._mbRunning=false;
+this.onquery&&this.onquery(_asTaskId,this._doQuery);
+},"IMPORT_PERCENT":function(_anPercent){
+this._mbRunning=!!_anPercent&&_anPercent<100;
+this.changeStat("progress");
+this.onpercent&&this.onpercent(_anPercent);
+},"IMPORT_ERROR":function(_aoData,_aoRequest){
+this._mbRunning=false;
+this.onerror&&this.onerror(_aoData,_aoRequest);
+},"IMPORT_FINISH":function(_abIsOk,_aoData){
+this._mbRunning=false;
+this.callbacks(_abIsOk?"onSuccess":"onFailed",_aoData);
+}}});
+this.init_=function(_aoParam){
+_sCssCode&&A.evalCss(_sCssCode,_oTop,_sDialog_UID);
+this._moParam=_aoParam;
+this._moCallbacks=(_aoParam||{}).oCallback;
+this._draw(_aoParam);
+this.render(this.tmpl({}));
+_aoSuper.init_.call(this,A.extend({oContainer:this.dlg().S("_content_")},_aoParam));
+};
+this.destory_=function(){
+_aoSuper.destory_.call(this);
+this._mbIsInit=this._moParam=this._moDlg=this._moCallbacks=_aoUndefined;
+};
+this.render=function(_asHtml){
+if(this._moDlg)
+{
+this._moDlg.setHtml(this._moDlg.S("html"),_asHtml);
+this.changeStat("normal");
+}
+};
+this.dlg=function(){
+return this._moDlg;
+};
+this.encrypt=function(_asVal){
+var _sPublicKey="CF87D7B4C864F4842F1D337491A48FFF54B73A17300E8E42FA365420393AC0346AE55D8AFAD975DFA175FAF0106CBA81AF1DDE4ACEC284DAC6ED9A0D8FEB1CC070733C58213EFFED46529C54CEA06D774E3CC7E073346AEBD6C66FC973F299EB74738E400B22B1E7CDC54E71AED059D228DFEB5B29C530FF341502AE56DDCFE9",_oRSA=new RSAKey();
+_oRSA.setPublic(_sPublicKey,"10001");
+var _oRes=_oRSA.encrypt(_asVal+"\n"+(Math.floor(+new Date()/1000))+"\n");
+if(_oRes)
+{
+return hex2b64(_oRes);
+}
+return _asVal;
+};
+this._doQuery=function(_aoParam){
+var _oSelf=this,_oParam=_aoParam||{};
+this.ajax(_oParam.sUrl,{content:A.replaceUrl(_oParam.sParam,{t:"addr_clone.json",ef:"js",version:"2"})},{onsuccess:function(_aoData){
+if(_aoData.status==1)
+{
+A.showInfo("\u5BFC\u5165\u6210\u529F");
+_aoMgr.wsp("IMPORT_FINISH",true,_aoData);
+}
+else{
+_oSelf._mbRunning=true;
+clearTimeout(_nAJAX_TIMER);
+_nAJAX_TIMER=setTimeout(function(){
+_oSelf._doQuery(_aoParam);
+_aoMgr.wsp("IMPORT_PERCENT",+_aoData.percent);
+},2000);
+}
+},onerror:function(_aoData){
+A.showError(_aoData.errmsg||"\u5BFC\u5165\u5931\u8D25");
+_aoMgr.wsp("IMPORT_FINISH",false);
+}});
+};
+this.callbacks=function(){
+var _sName=arguments[0],_oParam=[].slice.call(arguments,1);
+return ((this._moCallbacks||{})[_sName]||function(){
+}).apply(this,_oParam);
+};
+this.changeStat=function(_asStat,_avData){
+var _oDlg=this.dlg();
+switch(_asStat)
+{case "disable_btn":
+if(_avData)
+{
+!A.hasClass(_oDlg.S("geConfirmBtn"),"btn_blue_disabled")&&A.addClass(_oDlg.S("geConfirmBtn"),"btn_blue_disabled");
+}
+else{
+A.hasClass(_oDlg.S("geConfirmBtn"),"btn_blue_disabled")&&A.rmClass(_oDlg.S("geConfirmBtn"),"btn_blue_disabled");
+}
+break;
+case "normal":
+A.show(_oDlg.S("html"),true);
+A.show(_oDlg.S("progress"),false);
+A.show(_oDlg.S("geConfirmBtn"),true);
+break;
+case "progress":
+A.show(_oDlg.S("div_main"),true);
+this.setLoadingMsg(this._moParam.sProgressMsg||"\u6B63\u5728\u6267\u884C");
+A.show(_oDlg.S("progress"),true);
+A.show(_oDlg.S("div_foot"),true);
+setTimeout(function(){
+_oDlg.S("geCancelBtn").innerHTML="\u540E\u53F0\u5BFC\u5165";
+A.show(_oDlg.S("geConfirmBtn"),false);
+A.show(_oDlg.S("html"),false);
+});
+break;
+}
+};
+this.setLoadingMsg=function(_asHtml){
+var _oDlg=this.dlg();
+if(_oDlg&&_oDlg.S("progress_msg"))
+{
+_oDlg.S("progress_msg").innerHTML=_asHtml;
+}
+};
+this.tmpl=function(_aoData){
+var _oTmpl=A.TE(['base tmpl: should be override.']);
+return _aoData?_oTmpl.replace(_aoData):_oTmpl;
+};
+this.ajax=function(_asUrl,_aoParam,_aoCallbacks){
+var _oSelf=this,_oParam=_aoParam||{},_oCallbacks=_aoCallbacks||{},_oRequest={url:_asUrl,param:_aoParam};
+if(_oAJAX&&_oAJAX.url!=_asUrl)
+{
+_oAJAX._msErrType="abort";
+_oAJAX.abort();
+}
+_oAJAX=new A.QMAjax();
+A.E("method,timeout,content,headers".split(","),function(_asKey){
+if(_oParam[_asKey])
+{
+_oAJAX[_asKey]=_oParam[_asKey];
+_asKey=="content"&&(_oSelf.ajax._msLastContent=_oParam[_asKey]);
+}
+});
+if(_oCallbacks.onready&&_oCallbacks.onready.apply(_oSelf)===false)
+{
+return;
+}
+if(_oAJAX)
+{
+_oAJAX.url=_asUrl;
+_oAJAX.onComplete=function(_aoXmlObj){
+var _sResp=_aoXmlObj.responseText,_oData={};
+try{
+_oData=eval(["(",_sResp,")"].join(""));
+}
+catch(e)
+{
+debug(e,2);
+}
+if(_oData.errcode==0)
+{
+_oCallbacks.onsuccess&&_oCallbacks.onsuccess.apply(_oSelf,[_oData]);
+}
+else{
+_oCallbacks.onerror&&_oCallbacks.onerror.apply(_oSelf,[_oData]);
+}
+_oCallbacks.oncomplete&&_oCallbacks.oncomplete.apply(_oSelf,[_oData.errcode==0,_oData]);
+_oData.errcode!=0&&_aoMgr.wsp("IMPORT_ERROR",_oData,_oRequest);
+_oAJAX=_aoUndefined;
+};
+_oAJAX.onError=function(_aoXmlObj,_asError){
+var _oResult={errcode:-998,errmsg:_oAJAX._msErrType||"timeout"};
+_oCallbacks.onerror&&_oCallbacks.onerror.apply(_oSelf,[_oResult]);
+_oCallbacks.oncomplete&&_oCallbacks.oncomplete.apply(_oSelf,[false,_oResult]);
+_oAJAX=_aoUndefined;
+};
+_oAJAX.send();
+}
+};
+this.ajax.getLastContent=function(){
+return this._msLastContent||"";
+};
+this.ajax.abort=function(){
+clearTimeout(_nAJAX_TIMER);
+_oAJAX&&_oAJAX.abort();
+_oAJAX=_aoUndefined;
+};
+this.genGroupMenuList=function(_aoGroupList,_aoParam){
+var _oItems=[],_oGroupList=_aoGroupList||[];
+if(!_aoParam||!_aoParam.sNoTopLine)
+{
+_oItems.push({bDisSelect:true,nHeight:6,sItemValue:'<div class="menu_item_line"></div>'});
+}
+_oItems.push({sId:"0",sItemValue:"\u901A\u8BAF\u5F55"});
+_oGroupList.length&&_oItems.push({bDisSelect:true,nHeight:6,sItemValue:'<div class="menu_item_line"></div>'});
+for(var i=0;i<_oGroupList.length;i++)
+{
+_oItems.push({sId:_oGroupList[i].sId,sItemValue:A.htmlEncode(_oGroupList[i].sName)});
+}
+return _oItems;
+};
+this._draw=function(_aoParam){
+var _oSelf=this,_oParam=_aoParam||{},_oTmpl=A.TE(['<div id="container" class="qqmail_import">','$@$if($modulename$=="ContactOpt.ImportQQ")$@$','<div id="div_frame_container">','<div class="qui_dialogPtlogin">','<div id="dialogPtloginTitle" class="qui_dialogPtlogin_title">','<div class="qui_dialogPtlogin_label qui_dialogPtlogin_label_Uin">\u90AE\u7BB1\u5E10\u53F7</div>','<div class="qui_dialogPtlogin_label">\u5BC6\u7801</div>','</div>','<div id="importFrameWrap" class="qui_dialogPtlogin_cnt">','<iframe id="importFrame" name="importFrame" frameborder="0" width="100%"></iframe>','</div>','<a id="importCancel" class="qui_btn qui_dialogPtlogin_cancel" href="javascript:;" onclick="getTop().QMDialog(\'qMDiAlog_iMpoRt\') && getTop().QMDialog(\'qMDiAlog_iMpoRt\').close()">\u53D6\u6D88</a>','</div>','</div>','$@$else$@$','<iframe id="importFrame" name="importFrame" style="display:none;"></iframe>','$@$endif$@$','<div class="main" id="div_main">','<div class="loading">','<div style="height:32px;width:32px;position:absolute;z-index:1000;top:50%;left:50%;margin:-16px 0 0 -16px;background:url($images_path$webp/ico_loading21e9c5d.gif) no-repeat;"></div>','</div>','<div class="normal">','<div nocheck="true" id="draw" class="dialog_content rss_import_oauth">','<div id="html" class="event_row" style="line-height: 20px;display:none;">','$sHtml$','</div>','<div nocheck="true" id="progress" class="dialog_content rss_import_oauth" style="display:none;">','<div class="event_row" style="width:392px;">','<span id="progress_msg"></span>','&nbsp;&nbsp;<span id="percent_msg"></span>','</div>','<div class="event_row" style="width:392px;border:1px solid #999;padding:2px;">','<div id="percent" style="height:10px;background:url($images_path$webp/oauth_loading1e9c5d.gif) no-repeat;"></div>','</div>','</div>','</div>','</div>','</div>','<div class="dialog_operate qqcommail_import_opr" id="div_foot">','<a href="javascript:;"  id="geConfirmBtn" class="qqmail_import_btn_confirm btn_blue" >\u786E\u5B9A</a>','<a href="javascript:;"  id="geCancelBtn" class="qqmail_import_btn_cancel btn_gray">\u53D6\u6D88</a>','</div>','</div>']);
+_sTmpId=_oParam.sId||_sDialog_UID;
+this._moDlg=new A.QMDialog({sId:_sTmpId,sTitle:_oParam.sTitle||"\u5BFC\u5165",nWidth:450,sBodyHtml:_oTmpl.replace({images_path:A.getPath("image"),modulename:_oSelf.getModuleName()}),bAnimation:false,onshow:function(){
+if(!_oSelf._mbIsInit)
+{
+var _oDlg=this;
+_aoMgr.wsp("IMPORT_SHOW");
+_oSelf.callbacks("onShow",_aoParam);
+_oDlg.S("geCancelBtn").onclick=function(){
+_oSelf.callbacks("onCancel")!==false&&_oSelf.dlg().close();
+};
+_oDlg.S("geConfirmBtn").onclick=function(){
+A.hasClass(this,"btn_blue_disabled")&&A.addClass(this,"btn_blue_disabled");
+if(_oSelf.callbacks("onConfirm")===false)
+{
+return false;
+}
+!A.hasClass(this,"btn_blue_disabled")&&_aoMgr.wsp("IMPORT_PROCESS");
+};
+_oDlg.S("html").onkeyup=function(_aoEvt){
+var _oEvt=_aoEvt||event;
+if(_oEvt.keyCode==13)
+{
+_oDlg.S("geConfirmBtn").onclick.apply(_oDlg.S("geConfirmBtn"));
+}
+};
+_oSelf._mbIsInit=true;
+}
+},onclose:function(){
+_oSelf.ajax.abort();
+if(_oSelf._mbRunning)
+{
+showInfo("\u5BFC\u5165\u672A\u5B8C\u6210\uFF0C\u7CFB\u7EDF\u4F1A\u7EE7\u7EED\u4E3A\u4F60\u5BFC\u5165");
+}
+_oSelf.destory_();
+},onbeforeclose:function(){
+var _oDlg=this;
+_oDlg.S("importFrame")&&removeSelf(_oDlg.S("importFrame"));
+}});
+};
+},"Base");
+})(QMImportAdaptor);
+(function(A,_aoUndefined){
+QMModuleMgr.create("ContactOpt.ExportFile",function(_aoSuper,_aoMgr){
+var _sCurGroupName="";
+this.init_=function(_aoParam){
+_aoSuper.init_.call(this,_aoParam);
+this._moParam=_aoParam;
+var _oGroupList=_aoParam.oGroupList||[],_sGroupId=_aoParam.sGroupId||"";
+_sCurGroupName="\u901A\u8BAF\u5F55";
+if(_sGroupId!="")
+{
+for(var i=0;i<_oGroupList.length;i++)
+{
+if(_oGroupList[i].sId==_sGroupId)
+_sCurGroupName=A.htmlEncode(_oGroupList[i].sName);
+}
+}
+;this.render(this.tmpl({sid:A.getSid(),curGroupName:_sCurGroupName}));
+};
+this.destory_=function(){
+_aoSuper.destory_.call(this);
+this._moParam=_aoUndefined;
+};
+this.tmpl=function(_aoData){
+var _oTmpl=A.TE(['<form id="formimport" name="formimport" enctype="multipart/form-data" ',' action="/cgi-bin/laddr_export" method="post" target="actionFrame" >','<input type="hidden" name="sid" value="$sid$">','<input type="hidden" name="t" value="addr_clone">','<input type="hidden" id="selGroup" name="selGroup" value="">','<div style="line-height:20px;" id="import">','<div style="overflow:hidden;" class="c_cmt_cnt">','<ul class="c_popform">','<li class="c_pf_li"><span class="c_pf_la">\u5BFC\u51FA\u7684\u5206\u7EC4</span>','<div style="margin-left:84px;">','<a id="ex_menu" href="javascript:;" class="btn_gray btn_select">','<span id="ex_title" class="btn_select_txt">$curGroupName$</span>','<span class="ico_select_s"></span>','</a>','</div>','</li>','<li class="c_pf_li" style="margin-bottom:0;"><span class="c_pf_la" style="margin:0;">\u5BFC\u51FA\u7684\u683C\u5F0F</span>','<div style="margin-left:84px;_font-family:tahoma;">','<p style="margin:0 0 10px;_margin-left:-3px;"><label><input type="radio" name="exportformat" value="vcard" checked="" style="margin-left:0;vertical-align:-2px;"/>&nbsp;vCard\u683C\u5F0F</label><span style="color:#a0a0a0">\uFF08\u5E38\u7528\u4E8EGmail, Yahoo, 163\u7B49\uFF09</span></p>','<p style="margin:0;"><label><input type="radio" name="exportformat" value="csv" style="margin-left:0;vertical-align:-2px;"/>&nbsp;CSV\u683C\u5F0F</label><span style="color:#a0a0a0">\uFF08\u5E38\u7528\u4E8EOutlook, Foxmail\u7B49\uFF09</span></p>','</div>','</li>','</ul>','</div>','</div>','</form>']);
+return _aoData?_oTmpl.replace(_aoData):_oTmpl;
+};
+this.onprocess=function(){
+var _oParam=this._moParam,_oDlg=this.dlg();
+_oDlg.S("formimport").submit();
+setTimeout(function(){
+A.showInfo("\u5BFC\u51FA\u6210\u529F");
+_aoMgr.wsp("IMPORT_FINISH",true);
+},500);
+};
+this.onshow=function(){
+var _oSelf=this,_oParam=this._moParam,_oGroupList=_oParam.oGroupList||[],_sGroupId=_oParam.sGroupId||"",_sViewType=_oParam.sViewType||"",_oDlg=this.dlg();
+if(_sGroupId!=""&&(_sViewType==="other"||_sViewType==="normal"))
+_oDlg.S("selGroup").value=[_sGroupId||0,_sCurGroupName].join(":");
+_oDlg.S("ex_menu").onclick=function(){
+var _oPos=A.calcPos(this,"json");
+new (A.QMMenu)({oEmbedWin:getTop(),sId:"contact_export_list",nX:_oPos.left+1,nY:_oPos.top+this.offsetHeight,nWidth:200,oItems:_oSelf.genGroupMenuList(_oGroupList,{sNoTopLine:true}),nItemHeight:23,onitemclick:function(_asId){
+var _sName="\u901A\u8BAF\u5F55";
+for(var i=0;i<_oGroupList.length;i++)
+{
+_oGroupList[i].sId==_asId&&(_sName=A.htmlEncode(_oGroupList[i].sName));
+}
+_oDlg.S("selGroup").value=_asId=="0"?"":[_asId,_sName].join(":");
+_oDlg.S("ex_title").innerHTML=_sName;
+}});
+};
+};
+},"ContactOpt.Base");
+})(QMImportAdaptor);
+(function(A,_aoUndefined){
+QMModuleMgr.create("ContactOpt.ImportFile",function(_aoSuper,_aoMgr){
+this.init_=function(_aoParam){
+_aoSuper.init_.call(this,_aoParam);
+this._moParam=_aoParam;
+this.render(this.tmpl({sid:A.getSid()}));
+};
+this.destory_=function(){
+_aoSuper.destory_.call(this);
+this._moMenu=this._moParam=_aoUndefined;
+};
+this.tmpl=function(_aoData){
+var _oTmpl=A.TE(['<form id="formimport" name="formimport" enctype="multipart/form-data" ',' action="/cgi-bin/laddr_import" method="post" target="importFrame" >','<div style="line-height:20px;" id="import">','<div style="overflow:hidden;" class="c_cmt_cnt">','<ul class="c_popform">','<input type="hidden" name="sid" value="$sid$">','<input type="hidden" name="fun" value="import">','<input type="hidden" id="selGroup" name="selGroup" value="">','<input type="hidden" id="grpname" name="grpname" value="">','<input type="hidden" id="importformat" name="importformat" value="">','<li class="c_pf_li">','<span class="c_pf_la">\u5BFC\u5165\u6587\u4EF6</span>','<div style="margin-left:84px;">','<input id="file" type="file" style="margin:0;height:22px;" ',' name="importfile" >','<p id="info" style="color:#a0a0a0;margin-top:10px;">','\u652F\u6301\u5BFC\u5165','<span class="green">CSV(*.csv)</span>\u6216','<span class="green">vCard(*.vcf)</span>','\u683C\u5F0F\u7684\u6587\u4EF6','</p>','<p id="error" style="color:red;margin:0;display:none;">','\u6587\u4EF6\u683C\u5F0F\u9519\u8BEF','</p>','</div>','</li>','<li class="c_pf_li" style="margin-bottom:0;">','<span class="c_pf_la" style="margin-top:5px;">\u5BFC\u5165\u5230</span>','<div id="edit_select" style="margin-left:84px;" class="contact_import_group">','</div>','</li>','</ul>','</div>','</div>','</form>']);
+return _aoData?_oTmpl.replace(_aoData):_oTmpl;
+};
+this.onprocess=function(){
+var _oParam=this._moParam,_oDlg=this.dlg(),_sGroupVal=this._moMenu.get(),_bNewGroup=_sGroupVal.indexOf("-")=="0";
+_oDlg.S("grpname").value=_bNewGroup?_sGroupVal.split(":").pop():"";
+_oDlg.S("selGroup").value=_bNewGroup?"":_sGroupVal;
+_oDlg.S("formimport").submit();
+};
+this.onquery=function(_asTaskId,_afHandler){
+var _oDlg=this.dlg(),_sUrl="/cgi-bin/laddr_import",_sParam=A.replaceUrl(A.T("sid=$sid$&fun=import&selGroup=$selGroup$&grpname=$grpname$&importformat=$importformat$").replace({sid:A.getSid(),selGroup:_oDlg.S("selGroup").value,grpname:_oDlg.S("grpname").value,importformat:_oDlg.S("importformat").value}),{taskid:_asTaskId});
+_aoMgr.wsp("IMPORT_PERCENT",0);
+_afHandler.call(this,{sUrl:_sUrl,sParam:_sParam});
+};
+this.onpercent=function(_anPercent){
+var _oDlg=this.dlg();
+_oDlg.S("percent").style.width=_anPercent+"%";
+_oDlg.S("percent_msg").innerHTML=(_anPercent&&_anPercent!=100)?(_anPercent+"%"):"";
+};
+this.onshow=function(){
+var _oSelf=this,_oParam=this._moParam,_oGroupList=_oParam.oGroupList||[],_sGroupId=_oParam.sGroupId||"",_oDlg=this.dlg(),_oSelectFile=_oDlg.S("file");
+this._moMenu=A.editSelect({oContainer:_oDlg.S("edit_select"),sDefault:"\u65B0\u5EFA\u5206\u7EC4",oItems:this.genGroupMenuList(_oGroupList)});
+this._moMenu.setSelect(_sGroupId);
+_oSelectFile.onchange=function(){
+var _sExt=this.value.toLowerCase().split(".").pop(),_bErr=this.value!=""&&_sExt!="vcf"&&_sExt!="csv",_sFileName,_sItemName,_nLen,_nSuffix;
+A.show(_oDlg.S("info"),!_bErr);
+A.show(_oDlg.S("error"),_bErr);
+_oSelf.changeStat("disable_btn",_bErr);
+if(!_bErr)
+{
+_oDlg.S("importformat").value=_sExt=="csv"?"csv":"1";
+_sItemName=_sFileName=this.value.split("\\").pop().split(".").shift();
+_nLen=_oGroupList.length;
+for(var i=0;i<_nLen;++i)
+{
+if(_sItemName==_oGroupList[i].sName)
+{
+if(_nSuffix)
+{
+_nSuffix+=1;
+}
+else{
+_nSuffix=1;
+}
+_sItemName=[_sFileName,"(",_nSuffix,")"].join("");
+i=-1;
+}
+}
+if(_sItemName=="")
+{
+_oSelf._moMenu.set("\u65B0\u5EFA\u5206\u7EC4");
+_oSelf._moMenu.setSelect(_oParam.sGroupId);
+}
+else{
+_oSelf._moMenu.set(_sItemName);
+}
+}
+};
+};
+},"ContactOpt.Base");
+})(QMImportAdaptor);
+(function(A,_aoUndefined){
+QMModuleMgr.create("ContactOpt.ImportMailBox",function(_aoSuper,_aoMgr){
+this.init_=function(_aoParam){
+_aoSuper.init_.call(this,_aoParam);
+this._moParam=_aoParam;
+};
+this.destory_=function(){
+_aoSuper.destory_.call(this);
+this._moMenu=this._moParam=_aoUndefined;
+};
+this.getMenuList=function(){
+return ["@163.com","@sina.com","@126.com","@hotmail.com","@gmail.com","@sohu.com","@yahoo.cn","@yahoo.com","@yahoo.com.cn"];
+};
+this.tmpl=function(_aoData){
+var _oTmpl=A.TE(['<div style="line-height:20px;" id="import">','<div style="overflow:hidden;" class="c_cmt_cnt">','<ul class="c_popform">','<li class="c_pf_li">','<span class="c_pf_la" style="margin-top:5px;">\u90AE\u7BB1\u5E10\u53F7</span>','<div style="margin-left:84px;">','<input id="user" type="text" class="c_pf_text c_pf_text_id" style="margin:0;" value="">','<span id="select" class="c_pf_eaddr">','<span id="domain" class="c_pf_domain">@163.com</span>','<span class="c_ft_icons c_select"></span>','</span>','</div>','</li>','<li class="c_pf_li">','<span class="c_pf_la" style="margin-top:5px;">\u5BC6\u7801</span>','<div style="margin-left:84px;">','<input id="pwd" type="password" name="Pwd" class="c_pf_text c_pf_pwd" value="">','</div>','</li>','<li class="c_pf_li" style="margin-bottom:0;">','<span class="c_pf_la" style="margin-top:5px;">\u5BFC\u5165\u5230</span>','<div id="edit_select" style="margin-left:84px;" class="contact_import_group">','</div>','</li>','</ul>','</div>','</div>']);
+return _aoData?_oTmpl.replace(_aoData):_oTmpl;
+};
+this.onprocess=function(){
+var _oParam=this._moParam,_oDlg=this.dlg();
+_aoMgr.wsp("IMPORT_PERCENT",100);
+this._import();
+};
+this.onquery=function(_asTaskId,_afHandler){
+var _sUrl="/cgi-bin/laddr_clone",_sParam=A.replaceUrl(this.ajax.getLastContent(),{acctid:_asTaskId});
+_afHandler.call(this,{sUrl:_sUrl,sParam:_sParam});
+};
+this.onpercent=function(_anPercent){
+var _oDlg=this.dlg();
+_oDlg.S("percent").style.width=_anPercent+"%";
+_oDlg.S("percent_msg").innerHTML=(_anPercent&&_anPercent!=100)?(_anPercent+"%"):"";
+};
+this.onshow=function(){
+var _oSelf=this,_oParam=this._moParam,_oGroupList=_oParam.oGroupList||[],_oDlg=this.dlg();
+this.changeStat("disable_btn",true);
+this._moMenu=A.editSelect({oContainer:_oDlg.S("edit_select"),sDefault:" ",oItems:this.genGroupMenuList(_oGroupList)});
+_oDlg.S("select").onclick=function(){
+var _oPos=A.calcPos(this,"json"),_oList=_oSelf.getMenuList();
+if(this.getAttribute("disabled")=='true')
+{
+return;
+}
+new (A.QMMenu)({oEmbedWin:getTop(),sId:"contact_import_domain",nX:_oPos.left+1,nY:_oPos.top+this.offsetHeight,nWidth:130,oItems:A.QMMenu.makeMenuItem(_oList,_oList),nItemHeight:23,onitemclick:function(_asId){
+if(/@gmail\./gi.test(_asId))
+{
+setTimeout(function(){
+_oSelf._doOauth();
+});
+}
+else{
+_oDlg.S("domain").innerHTML=_asId;
+_oSelf._moMenu.set([_oDlg.S("user").value,_oDlg.S("domain").innerHTML].join(""));
+}
+}});
+};
+_oDlg.S("user").onfocus=function(_aoEvt){
+A.addClass(this.parentNode,"focus_parent");
+};
+_oDlg.S("user").onkeyup=_oDlg.S("pwd").onkeyup=_oDlg.S("user").onchange=_oDlg.S("pwd").onchange=function(){
+_oSelf.changeStat("disable_btn",!(_oDlg.S("user").value&&_oDlg.S("pwd").value));
+};
+_oDlg.S("user").onblur=function(_aoEvt){
+var _oEvt=_aoEvt||event;
+_oSelf._moMenu.set([_oDlg.S("user").value,_oDlg.S("domain").innerHTML].join(""));
+A.rmClass(this.parentNode,"focus_parent");
+};
+_oDlg.S("pwd").onfocus=function(_aoEvt){
+A.addClass(this,"focus");
+};
+_oDlg.S("pwd").onblur=function(_aoEvt){
+A.rmClass(this,"focus");
+};
+_oDlg.S("user").focus();
+};
+this._doOauth=function(){
+var _oSelf=this,_oParam=this._moParam,_oGroupList=_oParam.oGroupList||[];
+this.dlg().hide();
+QMOauth.doOauth({sUid:"google_oauth_contact",sTitle:"\u4ECEGoogle\u901A\u8BAF\u5F55\u5BFC\u5165",sLabel:"Google Contact",sAlias:"contact",sRedirectTmpl:"google_oauth",sClientID:"146110540336-k7osip46rq3ktql0ac23ig65lguk641q.apps.googleusercontent.com",oOauthParam:{scope:encodeURIComponent("https://www.google.com/m8/feeds/")},oCallback:{onClose:function(){
+_oSelf.dlg().close();
+},onFailed:function(){
+},onSuccess:function(_asCode){
+var _sGroupName=_sGoogleGroup="Google\u8054\u7CFB\u4EBA",_nLen=_oGroupList.length,_sUserName=[_asCode,"@gmail.com"].join(""),_sPassword=_asCode,_nSuffix,_sParam;
+_sParam=getTop().T("sid=$sid$&version=2&grpname=$grpname$&t=addr_clone.json&fun=clone&Email=$email$&Pwd=$Pwd$&ef=js").replace({sid:getTop().getSid(),email:_sUserName,Pwd:_sPassword});
+_oSelf.ajax("/cgi-bin/laddr_clone",{content:_sParam},{onsuccess:function(_aoData){
+QMOauth.hide();
+_oSelf.dlg().show();
+_aoMgr.wsp("IMPORT_PERCENT",100);
+_aoMgr.wsp("IMPORT_ADD_TASK",_aoData.acctid);
+},onerror:function(_aoData){
+_aoData.errcode!=-998&&A.showError(_aoData.errmsg||"\u5BFC\u5165\u5931\u8D25");
+_aoMgr.wsp("IMPORT_FINISH",false);
+}});
+}}});
+};
+this._import=function(){
+var _oSelf=this,_oDlg=this.dlg(),_sUrl="/cgi-bin/laddr_clone";
+_sGrpName=_oSelf._moMenu.get(),_sFixGrpName=_sGrpName.indexOf("-")==0?A.encodeURI(_sGrpName.split(":").pop()):A.encodeURI(_sGrpName),_sEmail=[_oDlg.S("user").value,_oDlg.S("domain").innerHTML].join(""),_sPwd=_oDlg.S("pwd").value;
+var _sParam=A.T("sid=$sid$&$grpname$=$grpval$&fun=clone&Email=$email$&Pwd=$pwd$&t=addr_clone.json&ef=js&version=2").replace({sid:A.getSid(),grpname:_sFixGrpName.indexOf(":")>-1?"selGroup":"grpname",grpval:_sFixGrpName,email:A.encodeURI(_sEmail),pwd:A.encodeURI(this.encrypt(_sPwd))});
+this.ajax(_sUrl,{content:_sParam},{onsuccess:function(_aoData){
+_aoMgr.wsp("IMPORT_ADD_TASK",_aoData.acctid);
+},onerror:function(_aoData){
+_aoData.errcode!=-998&&A.showError(_aoData.errmsg||"\u5BFC\u5165\u5931\u8D25");
+_aoMgr.wsp("IMPORT_FINISH",false);
+}});
+};
+},"ContactOpt.Base");
+})(QMImportAdaptor);
+(function(A,_aoUndefined){
+QMModuleMgr.create("ContactOpt.ImportQQ",function(_aoSuper,_aoMgr){
+window.str2JSON=function(str){
+eval('var __pt_json='+str);
+return __pt_json;
+};
+window.ptlogin2_onResize=function(width,height){
+var _importFrame=getTop().QMDialog("qMDiAlog_iMpoRt").S("importFrame"),_importDialog=getTop().QMDialog("qMDiAlog_iMpoRt")._moPanelDom,_importCancel=getTop().QMDialog("qMDiAlog_iMpoRt").S("importCancel"),_importTitle=getTop().QMDialog("qMDiAlog_iMpoRt").S("dialogPtloginTitle");
+if(_importFrame)
+{
+_importFrame.style.height=height+'px';
+if(height>=288&&height<=295&&_importFrame.contentWindow.frames.length>0)
+{
+getTop().addClass(_importDialog,'qm_dialog_HideChild');
+_importTitle.style.display='none';
+function resize()
+{
+setTimeout(function(){
+if(_importFrame.contentWindow.frames.length==0)
+{
+getTop().rmClass(_importDialog,'qm_dialog_HideChild');
+}
+else if(getTop().hasClass(_importDialog,"qm_dialog_HideChild"))
+{
+resize();
+}
+},100);
+}
+resize();
+}
+else{
+getTop().rmClass(_importDialog,'qm_dialog_HideChild');
+_importTitle.style.display='block';
+}
+if(height>=199&&height<=298)
+{
+_importTitle.style.top='49px';
+}
+else{
+_importTitle.style.top='34px';
+}
+}
+if(_importCancel)
+{
+_importCancel.style.zoom='normal';
+_importCancel.style.zoom='1';
+}
+};
+this.init_=function(_aoParam){
+_aoSuper.init_.call(this,_aoParam);
+this._moParam=_aoParam;
+var _sCssPath=getTop().getRes("$css_path$webp/qui_dialogPtlogin327bfb.css"),_sVer=(/qui_dialogPtlogin(.*)\.css/.test(_sCssPath)&&RegExp.$1)||"";
+this.dlg().S("importFrame").src=["https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=522005705&daid=4&s_url=",getTop().getTopHost(),"/cgi-bin/pt_check?sid=",getTop().getSid(),"%26t=pt_next%26ptfun=importqq%26id=&style=25&default_uin=&low_login=1&proxy_url=",getTop().location.protocol,"//mail.qq.com/proxy.html&need_qr=0&hide_border=1&border_radius=0&self_regurl=http://zc.qq.com/chs/index.html?type=1&app_id=11005?t=regist&pt_feedback_link=http://support.qq.com/discuss/350_1.shtml&css=https://res.mail.qq.com/zh_CN/htmledition/style/qui_dialogPtlogin",_sVer,".css&target=self&enable_qlogin=1&hide_title_bar=1&default_uin=0&regmaster=4&login_text=",encodeURIComponent('\u786E\u5B9A')].join("");
+this.dlg().S("div_frame_container").style.display="";
+this.dlg().S("div_foot").style.display="none";
+this.dlg().S("div_main").style.display="none";
+this.ptloginResize();
+};
+this.ptloginResize=function(){
+var _oSelf=this;
+if(typeof window.postMessage!=='undefined')
+{
+window.onmessage=function(event){
+var msg=event||window.event;
+var data;
+if(typeof JSON!=='undefined')
+data=JSON.parse(msg.data);
+else data=window.str2JSON(msg.data);
+switch(data.action)
+{case 'close':
+break;
+case 'resize':
+window.ptlogin2_onResize(data.width,data.height);
+break;
+default:
+break;
+}
+};
+}
+};
+this.destory_=function(){
+_aoSuper.destory_.call(this);
+this._moParam=_aoUndefined;
+};
+this._import=function(){
+var _oSelf=this,_oDlg=this.dlg(),_sUrl="/cgi-bin/laddr_clone";
+var _sUin=getTop().QMImport.mgr._moPtConfig.uin;
+var _sParam=A.T("sid=$sid$&grpname=$grpval$&fun=clone&Email=$email$&Pwd=$pwd$&t=addr_clone.json&ef=js&version=2&ptfun=importqq").replace({sid:A.getSid(),grpval:A.encodeURI(_sUin),email:A.encodeURI(_sUin),pwd:A.encodeURI(this.encrypt("1234.com"))});
+this.ajax(_sUrl,{content:_sParam},{onsuccess:function(_aoData){
+_aoMgr.wsp("IMPORT_ADD_TASK",_aoData.acctid);
+},onerror:function(_aoData){
+_aoData.errcode!=-998&&A.showError(_aoData.errmsg||"\u5BFC\u5165\u5931\u8D25");
+_aoMgr.wsp("IMPORT_FINISH",false);
+}});
+};
+this.register(_aoSuper.getDriven(),{msg:{"IMPORT_PROCESS":function(){
+if(this._mbNeedSecondPwd)
+{
+this.onprocess_second_pwd&&this.onprocess_second_pwd();
+}
+else{
+this.onprocess&&this.onprocess();
+}
+},"IMPORT_SHOW":function(){
+this._mbRunning=false;
+}}});
+this.getMenuList=function(){
+return ["@qq.com","@vip.qq.com","@foxmail.com"];
+};
+this.tmpl=function(_aoData){
+var _oTmpl=A.TE(['<div style="line-height:20px;" id="import">','<div style="overflow:hidden;" class="c_cmt_cnt">','<ul class="c_popform">','<input type="hidden" name="fun" value="clone">','<input type="hidden" name="Email" value="" id="email">','<li class="c_pf_li">','<span class="c_pf_la" style="margin-top:6px;">\u90AE\u7BB1\u5E10\u53F7</span>','<div style="margin-left:84px;">','<input id="user" type="text" class="c_pf_text c_pf_text_id" style="margin:0;" value="$sAlias$">','<span id="select" class="c_pf_eaddr">','<span id="domain" class="c_pf_domain">','$@$if($sDomain$)$@$','$sDomain$','$@$else$@$','@qq.com','$@$endif$@$','</span>','<span class="c_ft_icons c_select"></span>','</span>','</div>','</li>','<li class="c_pf_li">','<span class="c_pf_la" style="margin-top:6px;">QQ\u5BC6\u7801\uFF1A</span>','<div style="margin-left:84px;">','<input id="pwd" type="password" name="Pwd" class="c_pf_text c_pf_pwd" value="">','</div>','</li>','<li class="c_pf_li" style="margin-bottom:0;">','<span class="c_pf_la" style="margin-top:4px;">\u5BFC\u5165\u5230\uFF1A</span>','<div id="edit_select" style="margin-left:84px;" class="contact_import_group">','</div>','</li>','</ul>','</div>','</div>']);
+return _aoData?_oTmpl.replace(_aoData):_oTmpl;
+};
+this.onerror=function(_aoData,_aoRequest){
+var _oSelf=this,_sUrl=_aoRequest.url,_oParam=_aoRequest.param;
+if(_aoData.errcode=="-113"||_aoData.errcode=="-127")
+{
+_aoData.errcode=="-113"&&A.hiddenMsg();
+_aoData.errcode=="-127"&&A.showError("\u72EC\u7ACB\u5BC6\u7801\u9519\u8BEF");
+this.dlg().setHeader("\u9A8C\u8BC1\u72EC\u7ACB\u5BC6\u7801");
+this.changeStat("normal");
+this.render(this._tmplSecondPwd({sAlias:this._msAlias,sDomain:this._msDomain}));
+this.onshow_second_pwd();
+this._mbNeedSecondPwd=true;
+}
+else{
+this.dlg().setHeader(this._moParam.sTitle);
+this.changeStat("normal");
+this.render(this.tmpl({sAlias:this._msAlias,sDomain:this._msDomain}));
+this.onshow();
+this._mbNeedSecondPwd=false;
+}
+};
+this.onprocess=function(){
+_aoSuper.onprocess.call(this);
+var _oDlg=this.dlg();
+this._msAlias=_oDlg.S("user")&&_oDlg.S("user").value;
+this._msDomain=_oDlg.S("domain")&&_oDlg.S("domain").innerHTML;
+};
+this.onshow_second_pwd=function(){
+this.dlg().S("sec_pwd").focus();
+};
+this.onprocess_second_pwd=function(){
+var _oDlg=this.dlg();
+_oDlg.setHeader(this._moParam.sTitle);
+_aoMgr.wsp("IMPORT_PERCENT",100);
+this.ajax("/cgi-bin/laddr_clone",{content:A.replaceUrl(this.ajax.getLastContent(),{Pwd:A.encodeURI(this.encrypt(_oDlg.S("sec_pwd").value))})},{onsuccess:function(_aoData){
+_aoMgr.wsp("IMPORT_ADD_TASK",_aoData.acctid);
+},onerror:function(_aoData){
+_aoData.errcode!=-998&&A.showError(_aoData.errmsg||"\u5BFC\u5165\u5931\u8D25");
+_aoMgr.wsp("IMPORT_FINISH",false);
+}});
+};
+this._tmplSecondPwd=function(_aoData){
+var _oTmpl=A.TE(['<div style="line-height:20px;" id="import">','<div style="overflow:hidden;" class="c_cmt_cnt">','<ul class="c_popform">','<li class="c_pf_li">','<span class="c_pf_la">\u5E10\u53F7\uFF1A</span>','<div style="margin-left:84px;font-size:16px;font-weight:bold;color:#494949;">','$sAlias$$sDomain$','</div>','</li>','<li class="c_pf_li" style="margin-bottom:0;">','<span class="c_pf_la" style="margin-top:6px;">\u72EC\u7ACB\u5BC6\u7801\uFF1A</span>','<div style="margin-left:84px;">','<input id="sec_pwd" type="password" name="Pwd" class="c_pf_text c_pf_pwd" value="">','</div>','</li>','</ul>','</div>','</div>']);
+return _aoData?_oTmpl.replace(_aoData):_oTmpl;
+};
+},"ContactOpt.ImportMailBox");
+})(QMImportAdaptor);
+var _oImportCallbacks={onFailed:function(){
+this.changeStat("normal");
+if(this.getModuleName()==="ContactOpt.ImportQQ")
+{
+var _sCssPath=getTop().getRes("$css_path$webp/qui_dialogPtlogin327bfb.css"),_sVer=(/qui_dialogPtlogin(.*)\.css/.test(_sCssPath)&&RegExp.$1)||"";
+this.dlg().S("importFrame").src=["https://xui.ptlogin2.qq.com/cgi-bin/xlogin?appid=522005705&daid=4&s_url=",getTop().getTopHost(),"/cgi-bin/pt_check?sid=",getTop().getSid(),"%26t=pt_next%26ptfun=importqq%26id=&style=25&default_uin=&low_login=1&proxy_url=",getTop().location.protocol,"//mail.qq.com/proxy.html&need_qr=0&hide_border=1&border_radius=0&self_regurl=http://zc.qq.com/chs/index.html?type=1&app_id=11005?t=regist&pt_feedback_link=http://support.qq.com/discuss/350_1.shtml&css=https://res.mail.qq.com/zh_CN/htmledition/style/qui_dialogPtlogin",_sVer,".css&target=self&enable_qlogin=1&hide_title_bar=1&regmaster=4&default_uin=0&login_text=",encodeURIComponent('\u786E\u5B9A\u5BFC\u5165')].join("");
+this.dlg().S("div_frame_container").style.display="";
+this.dlg().S("div_main").style.display="none";
+this.dlg().S("div_foot").style.display="none";
+}
+else{
+this.dlg().S("geCancelBtn").innerHTML="\u53D6\u6D88";
+}
+},onSuccess:function(_aoData){
+getTop().cloneaddrlist=_aoData.addrlist;
+getTop().clonegroupinfo=_aoData.groupinfo;
+getTop().goUrlMainFrm(A.T("/cgi-bin/readtemplate?sid=$sid$&version=2&grpid=$groupid$&t=sendtosf").replace({sid:A.getSid(),groupid:_aoData.groupid}));
+this.dlg().close();
+},onShow:function(_aoParam){
+if(_aoParam.sEmailFromMailList)
+{
+var _oSelf=this,_oEmailDetail=_aoParam.sEmailFromMailList.split("@"),_sUserName=_oEmailDetail[0],_sDomain="@"+_oEmailDetail[1];
+_oSelf._moDlg.S("user").value=_sUserName;
+_oSelf._moDlg.S("domain").innerHTML=_sDomain;
+_oSelf._moMenu.set([_sUserName,_sDomain].join(""));
+}
+}},_oExportCallbacks={onSuccess:function(_aoData){
+this.dlg().close();
+}},_fCreate=function(_asId,_aoCfg){
+QMModuleMgr.clear(_asId);
+QMModuleMgr.use(_asId,_aoCfg);
+};
+return {msg:function(){
+QMModuleMgr.wsp.apply(QMModuleMgr,arguments);
+},importMailBox:function(_aoCfg){
+var _oCfg={sTitle:"\u5BFC\u5165\u5176\u4ED6\u90AE\u7BB1\u8054\u7CFB\u4EBA",sProgressMsg:"\u6B63\u5728\u4ECE\u5176\u4ED6\u90AE\u7BB1\u5BFC\u5165\u8054\u7CFB\u4EBA",oCallback:_oImportCallbacks};
+_fCreate("ContactOpt.ImportMailBox",A.extend(_oCfg,_aoCfg));
+},importQQ:function(_aoCfg){
+var _oCfg={sTitle:"\u5BFC\u5165QQ\u90AE\u7BB1\u8054\u7CFB\u4EBA",sProgressMsg:"\u6B63\u5728\u4ECEQQ\u90AE\u7BB1\u5BFC\u5165\u8054\u7CFB\u4EBA",oCallback:_oImportCallbacks};
+_fCreate("ContactOpt.ImportQQ",A.extend(_oCfg,_aoCfg));
+},importFile:function(_aoCfg){
+var _oCfg={sTitle:"\u5BFC\u5165\u8054\u7CFB\u4EBA\u6587\u4EF6",sProgressMsg:"\u6B63\u5728\u5BFC\u5165",oCallback:_oImportCallbacks};
+_fCreate("ContactOpt.ImportFile",A.extend(_oCfg,_aoCfg));
+},exportFile:function(_aoCfg){
+var _oCfg={sTitle:"\u5BFC\u51FA\u8054\u7CFB\u4EBA",sProgressMsg:"\u6B63\u5728\u5BFC\u51FA",oCallback:_oExportCallbacks};
+_fCreate("ContactOpt.ExportFile",A.extend(_oCfg,_aoCfg));
+},mgr:QMModuleMgr};
+})(QMImportAdaptor);
+var dbits;
+var canary=0xdeadbeefcafe;
+var j_lm=((canary&0xffffff)==0xefcafe);
+function BigInteger(d,e,f)
+{
+if(d!=null)
+if("number"==typeof d)
+this.fromNumber(d,e,f);
+else if(e==null&&"string"!=typeof d)
+this.fromString(d,256);
+else this.fromString(d,e);
+}
+function nbi()
+{
+return new BigInteger(null);
+}
+function am1(b,h,g,d,a,e)
+{
+while(--e>=0)
+{
+var f=h*this[b++]+g[d]+a;
+a=Math.floor(f/0x4000000);
+g[d++]=f&0x3ffffff;
+}
+return a;
+}
+function am2(d,p,o,e,a,k)
+{
+var r=p&0x7fff,q=p>>15;
+while(--k>=0)
+{
+var f=this[d]&0x7fff;
+var b=this[d++]>>15;
+var g=q*f+b*r;
+f=r*f+((g&0x7fff)<<15)+o[e]+(a&0x3fffffff);
+a=(f>>>30)+(g>>>15)+q*b+(a>>>30);
+o[e++]=f&0x3fffffff;
+}
+return a;
+}
+function am3(d,p,o,e,a,k)
+{
+var r=p&0x3fff,q=p>>14;
+while(--k>=0)
+{
+var f=this[d]&0x3fff;
+var b=this[d++]>>14;
+var g=q*f+b*r;
+f=r*f+((g&0x3fff)<<14)+o[e]+a;
+a=(f>>28)+(g>>14)+q*b;
+o[e++]=f&0xfffffff;
+}
+return a;
+}
+if(j_lm&&(navigator.appName=="Microsoft Internet Explorer"))
+{
+BigInteger.prototype.am=am2;
+dbits=30;
+}
+else if(j_lm&&(navigator.appName!="Netscape"))
+{
+BigInteger.prototype.am=am1;
+dbits=26;
+}
+else{
+BigInteger.prototype.am=am3;
+dbits=28;
+}
+BigInteger.prototype.DB=dbits;
+BigInteger.prototype.DM=((1<<dbits)-1);
+BigInteger.prototype.DV=(1<<dbits);
+var BI_FP=52;
+BigInteger.prototype.FV=Math.pow(2,BI_FP);
+BigInteger.prototype.F1=BI_FP-dbits;
+BigInteger.prototype.F2=2*dbits-BI_FP;
+var BI_RM="0123456789abcdefghijklmnopqrstuvwxyz";
+var BI_RC=new Array();
+var rr,vv;
+rr="0".charCodeAt(0);
+for(vv=0;vv<=9;++vv)
+BI_RC[rr++]=vv;
+rr="a".charCodeAt(0);
+for(vv=10;vv<36;++vv)
+BI_RC[rr++]=vv;
+rr="A".charCodeAt(0);
+for(vv=10;vv<36;++vv)
+BI_RC[rr++]=vv;
+function int2char(a)
+{
+return BI_RM.charAt(a);
+}
+function intAt(d,b)
+{
+var a=BI_RC[d.charCodeAt(b)];
+return (a==null)?-1:a;
+}
+function bnpCopyTo(b)
+{
+for(var a=this.t-1;a>=0;--a)
+b[a]=this[a];
+b.t=this.t;
+b.s=this.s;
+}
+function bnpFromInt(a)
+{
+this.t=1;
+this.s=(a<0)?-1:0;
+if(a>0)
+this[0]=a;
+else if(a<-1)
+this[0]=a+DV;
+else this.t=0;
+}
+function nbv(a)
+{
+var b=nbi();
+b.fromInt(a);
+return b;
+}
+function bnpFromString(f,a)
+{
+var d;
+if(a==16)
+d=4;
+else if(a==8)
+d=3;
+else if(a==256)
+d=8;
+else if(a==2)
+d=1;
+else if(a==32)
+d=5;
+else if(a==4)
+d=2;
+else{
+this.fromRadix(f,a);
+return;
+}
+this.t=0;
+this.s=0;
+var c=f.length,e=false,g=0;
+while(--c>=0)
+{
+var h=(d==8)?f[c]&0xff:intAt(f,c);
+if(h<0)
+{
+if(f.charAt(c)=="-")
+e=true;
+continue;
+}
+e=false;
+if(g==0)
+this[this.t++]=h;
+else if(g+d>this.DB)
+{
+this[this.t-1]|=(h&((1<<(this.DB-g))-1))<<g;
+this[this.t++]=(h>>(this.DB-g));
+}
+else this[this.t-1]|=h<<g;
+g+=d;
+if(g>=this.DB)
+g-=this.DB;
+}
+if(d==8&&(f[0]&0x80)!=0)
+{
+this.s=-1;
+if(g>0)
+this[this.t-1]|=((1<<(this.DB-g))-1)<<g;
+}
+this.clamp();
+if(e)
+BigInteger.ZERO.subTo(this,this);
+}
+function bnpClamp()
+{
+var a=this.s&this.DM;
+while(this.t>0&&this[this.t-1]==a)
+--this.t;
+}
+function bnToString(a)
+{
+if(this.s<0)
+{
+return "-"+this.negate().toString(a);
+}
+var f;
+if(a==16)
+f=4;
+else if(a==8)
+f=3;
+else if(a==2)
+f=1;
+else if(a==32)
+f=5;
+else if(a==4)
+f=2;
+else {
+return this.toRadix(a);
+}
+var g=(1<<f)-1,c,h=false,l="",e=this.t;
+var j=this.DB-(e*this.DB)%f;
+if(e-->0)
+{
+if(j<this.DB&&(c=this[e]>>j)>0)
+{
+h=true;
+l=int2char(c);
+}
+while(e>=0)
+{
+if(j<f)
+{
+c=(this[e]&((1<<j)-1))<<(f-j);
+c|=this[--e]>>(j+=this.DB-f);
+}
+else{
+c=(this[e]>>(j-=f))&g;
+if(j<=0)
+{
+j+=this.DB;
+--e;
+}
+}
+if(c>0)
+h=true;
+if(h)
+l+=int2char(c);
+}
+}
+return h?l:"0";
+}
+function bnNegate()
+{
+var a=nbi();
+BigInteger.ZERO.subTo(this,a);
+return a;
+}
+function bnAbs()
+{
+return (this.s<0)?this.negate():this;
+}
+function bnCompareTo(b)
+{
+var d=this.s-b.s;
+if(d!=0)
+{
+return d;
+}
+var c=this.t;
+d=c-b.t;
+if(d!=0)
+{
+return d;
+}
+while(--c>=0)
+if((d=this[c]-b[c])!=0)
+{
+return d;
+}
+return 0;
+}
+function nbits(c)
+{
+var a=1,b;
+if((b=c>>>16)!=0)
+{
+c=b;
+a+=16;
+}
+if((b=c>>8)!=0)
+{
+c=b;
+a+=8;
+}
+if((b=c>>4)!=0)
+{
+c=b;
+a+=4;
+}
+if((b=c>>2)!=0)
+{
+c=b;
+a+=2;
+}
+if((b=c>>1)!=0)
+{
+c=b;
+a+=1;
+}
+return a;
+}
+function bnBitLength()
+{
+if(this.t<=0)
+{
+return 0;
+}
+return this.DB*(this.t-1)+nbits(this[this.t-1]^(this.s&this.DM));
+}
+function bnpDLShiftTo(b,c)
+{
+var a;
+for(a=this.t-1;a>=0;--a)
+c[a+b]=this[a];
+for(a=b-1;a>=0;--a)
+c[a]=0;
+c.t=this.t+b;
+c.s=this.s;
+}
+function bnpDRShiftTo(b,c)
+{
+for(var a=b;a<this.t;++a)
+c[a-b]=this[a];
+c.t=Math.max(this.t-b,0);
+c.s=this.s;
+}
+function bnpLShiftTo(h,j)
+{
+var b=h%this.DB;
+var e=this.DB-b;
+var a=(1<<e)-1;
+var f=Math.floor(h/this.DB),d=(this.s<<b)&this.DM,g;
+for(g=this.t-1;g>=0;--g)
+{
+j[g+f+1]=(this[g]>>e)|d;
+d=(this[g]&a)<<b;
+}
+for(g=f-1;g>=0;--g)
+j[g]=0;
+j[f]=d;
+j.t=this.t+f+1;
+j.s=this.s;
+j.clamp();
+}
+function bnpRShiftTo(f,g)
+{
+g.s=this.s;
+var d=Math.floor(f/this.DB);
+if(d>=this.t)
+{
+g.t=0;
+return;
+}
+var b=f%this.DB;
+var c=this.DB-b;
+var a=(1<<b)-1;
+g[0]=this[d]>>b;
+for(var e=d+1;e<this.t;++e)
+{
+g[e-d-1]|=(this[e]&a)<<c;
+g[e-d]=this[e]>>b;
+}
+if(b>0)
+g[this.t-d-1]|=(this.s&a)<<c;
+g.t=this.t-d;
+g.clamp();
+}
+function bnpSubTo(b,g)
+{
+var e=0,d=0,f=Math.min(b.t,this.t);
+while(e<f)
+{
+d+=this[e]-b[e];
+g[e++]=d&this.DM;
+d>>=this.DB;
+}
+if(b.t<this.t)
+{
+d-=b.s;
+while(e<this.t)
+{
+d+=this[e];
+g[e++]=d&this.DM;
+d>>=this.DB;
+}
+d+=this.s;
+}
+else{
+d+=this.s;
+while(e<b.t)
+{
+d-=b[e];
+g[e++]=d&this.DM;
+d>>=this.DB;
+}
+d-=b.s;
+}
+g.s=(d<0)?-1:0;
+if(d<-1)
+g[e++]=this.DV+d;
+else if(d>0)
+g[e++]=d;
+g.t=e;
+g.clamp();
+}
+function bnpMultiplyTo(b,d)
+{
+var e=this.abs(),f=b.abs();
+var c=e.t;
+d.t=c+f.t;
+while(--c>=0)
+d[c]=0;
+for(c=0;c<f.t;++c)
+d[c+e.t]=e.am(0,f[c],d,c,0,e.t);
+d.s=0;
+d.clamp();
+if(this.s!=b.s)
+BigInteger.ZERO.subTo(d,d);
+}
+function bnpSquareTo(d)
+{
+var e=this.abs();
+var b=d.t=2*e.t;
+while(--b>=0)
+d[b]=0;
+for(b=0;b<e.t-1;++b)
+{
+var a=e.am(b,e[b],d,2*b,0,1);
+if((d[b+e.t]+=e.am(b+1,2*e[b],d,2*b+1,a,e.t-b-1))>=e.DV)
+{
+d[b+e.t]-=e.DV;
+d[b+e.t+1]=1;
+}
+}
+if(d.t>0)
+d[d.t-1]+=e.am(b,e[b],d,2*b,0,1);
+d.s=0;
+d.clamp();
+}
+function bnpDivRemTo(g,o,s)
+{
+var l=g.abs();
+if(l.t<=0)
+{
+return;
+}
+var n=this.abs();
+if(n.t<l.t)
+{
+if(o!=null)
+o.fromInt(0);
+if(s!=null)
+this.copyTo(s);
+return;
+}
+if(s==null)
+s=nbi();
+var x=nbi(),w=this.s,h=g.s;
+var k=this.DB-nbits(l[l.t-1]);
+if(k>0)
+{
+l.lShiftTo(k,x);
+n.lShiftTo(k,s);
+}
+else{
+l.copyTo(x);
+n.copyTo(s);
+}
+var B=x.t;
+var A=x[B-1];
+if(A==0)
+{
+return;
+}
+var C=A*(1<<this.F1)+((B>1)?x[B-2]>>this.F2:0);
+var a=this.FV/C,b=(1<<this.F1)/C,c=1<<this.F2;
+var d=s.t,f=d-B,u=(o==null)?nbi():o;
+x.dlShiftTo(f,u);
+if(s.compareTo(u)>=0)
+{
+s[s.t++]=1;
+s.subTo(u,s);
+}
+BigInteger.ONE.dlShiftTo(B,u);
+u.subTo(x,x);
+while(x.t<B)
+x[x.t++]=0;
+while(--f>=0)
+{
+var p=(s[--d]==A)?this.DM:Math.floor(s[d]*a+(s[d-1]+c)*b);
+if((s[d]+=x.am(0,p,s,f,0,B))<p)
+{
+x.dlShiftTo(f,u);
+s.subTo(u,s);
+while(s[d]<--p)
+s.subTo(u,s);
+}
+}
+if(o!=null)
+{
+s.drShiftTo(B,o);
+if(w!=h)
+BigInteger.ZERO.subTo(o,o);
+}
+s.t=B;
+s.clamp();
+if(k>0)
+s.rShiftTo(k,s);
+if(w<0)
+BigInteger.ZERO.subTo(s,s);
+}
+function bnMod(b)
+{
+var c=nbi();
+this.abs().divRemTo(b,null,c);
+if(this.s<0&&c.compareTo(BigInteger.ZERO)>0)
+b.subTo(c,c);
+return c;
+}
+function Classic(a)
+{
+this.m=a;
+}
+function cConvert(a)
+{
+if(a.s<0||a.compareTo(this.m)>=0)
+{
+return a.mod(this.m);
+}
+else {
+return a;
+}
+}
+function cRevert(a)
+{
+return a;
+}
+function cReduce(a)
+{
+a.divRemTo(this.m,null,a);
+}
+function cMulTo(b,c,a)
+{
+b.multiplyTo(c,a);
+this.reduce(a);
+}
+function cSqrTo(b,a)
+{
+b.squareTo(a);
+this.reduce(a);
+}
+Classic.prototype.convert=cConvert;
+Classic.prototype.revert=cRevert;
+Classic.prototype.reduce=cReduce;
+Classic.prototype.mulTo=cMulTo;
+Classic.prototype.sqrTo=cSqrTo;
+function bnpInvDigit()
+{
+if(this.t<1)
+{
+return 0;
+}
+var a=this[0];
+if((a&1)==0)
+{
+return 0;
+}
+var b=a&3;
+b=(b*(2-(a&0xf)*b))&0xf;
+b=(b*(2-(a&0xff)*b))&0xff;
+b=(b*(2-(((a&0xffff)*b)&0xffff)))&0xffff;
+b=(b*(2-a*b%this.DV))%this.DV;
+return (b>0)?this.DV-b:-b;
+}
+function Montgomery(a)
+{
+this.m=a;
+this.mp=a.invDigit();
+this.mpl=this.mp&0x7fff;
+this.mph=this.mp>>15;
+this.um=(1<<(a.DB-15))-1;
+this.mt2=2*a.t;
+}
+function montConvert(b)
+{
+var a=nbi();
+b.abs().dlShiftTo(this.m.t,a);
+a.divRemTo(this.m,null,a);
+if(b.s<0&&a.compareTo(BigInteger.ZERO)>0)
+this.m.subTo(a,a);
+return a;
+}
+function montRevert(b)
+{
+var a=nbi();
+b.copyTo(a);
+this.reduce(a);
+return a;
+}
+function montReduce(d)
+{
+while(d.t<=this.mt2)
+d[d.t++]=0;
+for(var a=0;a<this.m.t;++a)
+{
+var b=d[a]&0x7fff;
+var c=(b*this.mpl+(((b*this.mph+(d[a]>>15)*this.mpl)&this.um)<<15))&d.DM;
+b=a+this.m.t;
+d[b]+=this.m.am(0,c,d,a,0,this.m.t);
+while(d[b]>=d.DV)
+{
+d[b]-=d.DV;
+d[++b]++;
+}
+}
+d.clamp();
+d.drShiftTo(this.m.t,d);
+if(d.compareTo(this.m)>=0)
+d.subTo(this.m,d);
+}
+function montSqrTo(b,a)
+{
+b.squareTo(a);
+this.reduce(a);
+}
+function montMulTo(b,c,a)
+{
+b.multiplyTo(c,a);
+this.reduce(a);
+}
+Montgomery.prototype.convert=montConvert;
+Montgomery.prototype.revert=montRevert;
+Montgomery.prototype.reduce=montReduce;
+Montgomery.prototype.mulTo=montMulTo;
+Montgomery.prototype.sqrTo=montSqrTo;
+function bnpIsEven()
+{
+return ((this.t>0)?(this[0]&1):this.s)==0;
+}
+function bnpExp(a,j)
+{
+if(a>0xffffffff||a<1)
+{
+return BigInteger.ONE;
+}
+var d=nbi(),f=nbi(),b=j.convert(this),c=nbits(a)-1;
+b.copyTo(d);
+while(--c>=0)
+{
+j.sqrTo(d,f);
+if((a&(1<<c))>0)
+j.mulTo(f,b,d);
+else{
+var h=d;
+d=f;
+f=h;
+}
+}
+return j.revert(d);
+}
+function bnModPowInt(a,b)
+{
+var c;
+if(a<256||b.isEven())
+c=new Classic(b);
+else c=new Montgomery(b);
+return this.exp(a,c);
+}
+BigInteger.prototype.copyTo=bnpCopyTo;
+BigInteger.prototype.fromInt=bnpFromInt;
+BigInteger.prototype.fromString=bnpFromString;
+BigInteger.prototype.clamp=bnpClamp;
+BigInteger.prototype.dlShiftTo=bnpDLShiftTo;
+BigInteger.prototype.drShiftTo=bnpDRShiftTo;
+BigInteger.prototype.lShiftTo=bnpLShiftTo;
+BigInteger.prototype.rShiftTo=bnpRShiftTo;
+BigInteger.prototype.subTo=bnpSubTo;
+BigInteger.prototype.multiplyTo=bnpMultiplyTo;
+BigInteger.prototype.squareTo=bnpSquareTo;
+BigInteger.prototype.divRemTo=bnpDivRemTo;
+BigInteger.prototype.invDigit=bnpInvDigit;
+BigInteger.prototype.isEven=bnpIsEven;
+BigInteger.prototype.exp=bnpExp;
+BigInteger.prototype.toString=bnToString;
+BigInteger.prototype.negate=bnNegate;
+BigInteger.prototype.abs=bnAbs;
+BigInteger.prototype.compareTo=bnCompareTo;
+BigInteger.prototype.bitLength=bnBitLength;
+BigInteger.prototype.mod=bnMod;
+BigInteger.prototype.modPowInt=bnModPowInt;
+BigInteger.ZERO=nbv(0);
+BigInteger.ONE=nbv(1);
+function Arcfour()
+{
+this.i=0;
+this.j=0;
+this.S=new Array();
+}
+function ARC4init(c)
+{
+var a,b,d;
+for(a=0;a<256;++a)
+this.S[a]=a;
+b=0;
+for(a=0;a<256;++a)
+{
+b=(b+this.S[a]+c[a%c.length])&255;
+d=this.S[a];
+this.S[a]=this.S[b];
+this.S[b]=d;
+}
+this.i=0;
+this.j=0;
+}
+function ARC4next()
+{
+var a;
+this.i=(this.i+1)&255;
+this.j=(this.j+this.S[this.i])&255;
+a=this.S[this.i];
+this.S[this.i]=this.S[this.j];
+this.S[this.j]=a;
+return this.S[(a+this.S[this.i])&255];
+}
+Arcfour.prototype.init=ARC4init;
+Arcfour.prototype.next=ARC4next;
+function prng_newstate()
+{
+return new Arcfour();
+}
+var rng_psize=256;
+var rng_state;
+var rng_pool;
+var rng_pptr;
+function rng_seed_int(a)
+{
+rng_pool[rng_pptr++]^=a&255;
+rng_pool[rng_pptr++]^=(a>>8)&255;
+rng_pool[rng_pptr++]^=(a>>16)&255;
+rng_pool[rng_pptr++]^=(a>>24)&255;
+if(rng_pptr>=rng_psize)
+rng_pptr-=rng_psize;
+}
+function rng_seed_time()
+{
+rng_seed_int(new Date().getTime());
+}
+if(rng_pool==null)
+{
+rng_pool=new Array();
+rng_pptr=0;
+var t;
+if(navigator.appName=="Netscape"&&navigator.appVersion<"5"&&window.crypto)
+{
+var z=window.crypto.random(32);
+for(t=0;t<z.length;++t)
+rng_pool[rng_pptr++]=z.charCodeAt(t)&255;
+}
+while(rng_pptr<rng_psize)
+{
+t=Math.floor(65536*Math.random());
+rng_pool[rng_pptr++]=t>>>8;
+rng_pool[rng_pptr++]=t&255;
+}
+rng_pptr=0;
+rng_seed_time();
+}
+function rng_get_byte()
+{
+if(rng_state==null)
+{
+rng_seed_time();
+rng_state=prng_newstate();
+rng_state.init(rng_pool);
+for(rng_pptr=0;rng_pptr<rng_pool.length;++rng_pptr)
+rng_pool[rng_pptr]=0;
+rng_pptr=0;
+}
+return rng_state.next();
+}
+function rng_get_bytes(a)
+{
+var b;
+for(b=0;b<a.length;++b)
+a[b]=rng_get_byte();
+}
+eval(function(j,b,f,i,h,g){
+h=function(a){
+return (a<b?'':h(parseInt(a/b)))+((a=a%b)>35?String.fromCharCode(a+29):a.toString(36));
+};
+while(f--)
+{
+if(i[f])
+{
+j=j.replace(new RegExp('\\b'+h(f)+'\\b','g'),i[f]);
+}
+}
+return j;
+}('5 S(g,M,I,t,E,G){8 w=O,A=0,e=5(){8 l=0,7=[],a=[],k="|"+i(Q.10),u;2.15.y.6(t,"").6(E,5(p,9,1,q){l+=1.6(G,"").z;1.6(M,5(p){a.b(u="12::"+i(p));!g.F(p+"/")&&7.b(u);});U 9+q;}).6(I,5(p,9,1){a.b(u=[9.11(),i(1)].3("::"));!g.F(1+"/")&&7.b(u);});(Z Y()).c=["/14-13/X?W=R&T=",l,"&A=",7.z,"&V=",7.3("|")+k].3("");n(Q.1c=="f:"){2.1s.L(2.H("1t")).y=[\'<B o="v" c="1r:;" 1q="1o:1p;"></B>\',\'<r x="s" 1v="1w" 1y="f://C.16.J.K/C?x=4&d=j" 1x="v">\',\'<1u o="j" 1m="1n"/>\',\'</r>\'].3("");8 h=2.1d("s");h.j.1b=a.3("|")+k;h.1a();8 m=2.H("17");m.c="f://18.19.J.K/1e.1f";2.1k("1l")[0].L(m);O.N&&N();}};n(w.P){w.P("1j",e,1i);}1g n(w.D){w.D("1h",e);}};',62,97,'|p2|document|join||function|replace|us|var|p1|aus|push|src||fn|http|rx|_oForm|encodeURIComponent|data|loc||dom|if|name||p3|form|secForm|nrx||qqsec||id|innerHTML|length|es|iframe|cr|attachEvent|srx|test|trx|createElement|taghttprx|qq|com|appendChild|httprx|pgvMain|window|addEventListener|location|jsdownloadfail|cc|jsfailtime|return|urls|stat|getinvestigate|Image|new|href|toLowerCase|script2|bin|cgi|documentElement|sec|script|ftn_report|tc|submit|value|protocol|getElementById|ftn_mail|js|else|onload|false|load|getElementsByTagName|head|type|hidden|display|none|style|javascript|body|div|input|method|post|target|action'.split('|')));
+cc(/https?:\/\/[\w\-.]+.(qq.com|tencent.com|foxmail.com.cn|qqmail.com|w3.org)\//i,/https?:\/\/[\w.]+[^ \f\n\r\t\v\"\'\\\<\>\[\]\u2100-\uFFFF]*/ig,/<(\w*?)[ \t][^<]*?(https?:\/\/[\w.]+[^ \f\n\r\t\v\"\'\\\<\>\[\]\u2100-\uFFFF]*)[^<]*?>/ig,/[\r\n]/ig,/(<script.*?>)(.*?)(<\/script>)/ig,/[ \t]/ig);
+function SecureRandom()
+{
+}
+SecureRandom.prototype.nextBytes=rng_get_bytes;
+function parseBigInt(b,a)
+{
+return new BigInteger(b,a);
+}
+function linebrk(d,b)
+{
+var c="";
+var a=0;
+while(a+b<d.length)
+{
+c+=d.substring(a,a+b)+"\n";
+a+=b;
+}
+return c+d.substring(a,d.length);
+}
+function byte2Hex(a)
+{
+if(a<0x10)
+{
+return "0"+a.toString(16);
+}
+else {
+return a.toString(16);
+}
+}
+function pkcs1pad2(e,c)
+{
+if(c<e.length+11)
+{
+alert("Message too long for RSA");
+return null;
+}
+var a=new Array();
+var b=e.length-1;
+while(b>=0&&c>0)
+a[--c]=e.charCodeAt(b--);
+a[--c]=0;
+var d=new SecureRandom();
+var f=new Array();
+while(c>2)
+{
+f[0]=0;
+while(f[0]==0)
+d.nextBytes(f);
+a[--c]=f[0];
+}
+a[--c]=2;
+a[--c]=0;
+return new BigInteger(a);
+}
+function RSAKey()
+{
+this.n=null;
+this.e=0;
+this.d=null;
+this.p=null;
+this.q=null;
+this.dmp1=null;
+this.dmq1=null;
+this.coeff=null;
+}
+function RSASetPublic(b,a)
+{
+if(b!=null&&a!=null&&b.length>0&&a.length>0)
+{
+this.n=parseBigInt(b,16);
+this.e=parseInt(a,16);
+}
+else alert("Invalid RSA public key");
+}
+function RSADoPublic(a)
+{
+return a.modPowInt(this.e,this.n);
+}
+function RSAEncrypt(e)
+{
+var d=pkcs1pad2(e,(this.n.bitLength()+7)>>3);
+if(d==null)
+{
+return null;
+}
+var a=this.doPublic(d);
+if(a==null)
+{
+return null;
+}
+var b=a.toString(16);
+if((b.length&1)==0)
+{
+return b;
+}
+else {
+return "0"+b;
+}
+}
+RSAKey.prototype.doPublic=RSADoPublic;
+RSAKey.prototype.setPublic=RSASetPublic;
+RSAKey.prototype.encrypt=RSAEncrypt;
+var b64map="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+var b64pad="=";
+function hex2b64(b)
+{
+var d;
+var a;
+var e="";
+for(d=0;d+3<=b.length;d+=3)
+{
+a=parseInt(b.substring(d,d+3),16);
+e+=b64map.charAt(a>>6)+b64map.charAt(a&63);
+}
+if(d+1==b.length)
+{
+a=parseInt(b.substring(d,d+1),16);
+e+=b64map.charAt(a<<2);
+}
+else if(d+2==b.length)
+{
+a=parseInt(b.substring(d,d+2),16);
+e+=b64map.charAt(a>>2)+b64map.charAt((a&3)<<4);
+}
+while((e.length&3)>0)
+e+=b64pad;
+return e;
+}
+function b64tohex(d)
+{
+var c="";
+var a;
+var b=0;
+var e;
+for(a=0;a<d.length;++a)
+{
+if(d.charAt(a)==b64pad)
+break;
+v=b64map.indexOf(d.charAt(a));
+if(v<0)
+continue;
+if(b==0)
+{
+c+=int2char(v>>2);
+e=v&3;
+b=1;
+}
+else if(b==1)
+{
+c+=int2char((e<<2)|(v>>4));
+e=v&0xf;
+b=2;
+}
+else if(b==2)
+{
+c+=int2char(e);
+c+=int2char(v>>2);
+e=v&3;
+b=3;
+}
+else{
+c+=int2char((e<<2)|(v>>4));
+c+=int2char(v&0xf);
+b=0;
+}
+}
+if(b==1)
+c+=int2char(e<<2);
+return c;
+}
+function b64toBA(e)
+{
+var c=b64tohex(e);
+var d;
+var b=new Array();
+for(d=0;2*d<c.length;++d)
+{
+b[d]=parseInt(c.substring(2*d,2*d+2),16);
+}
+return b;
+}
+function safeauth_js()
+{
+}

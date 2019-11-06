@@ -1,0 +1,312 @@
+var QMCalAdaptor=(function(a){
+return ({calDays:getTop().calDays});
+})();
+function Lunar(a)
+{
+this.constructor=arguments.callee;
+a=a||new Date();
+this.nSolarYear=a.getFullYear();
+this.nSolarMonth=a.getMonth()+1;
+this.nSolarDay=a.getDate();
+var b,c=0,e=0,f=new Date(1900,0,31),d=Math.round((a-f)/86400000);
+this.nDayCyl=d+40;
+this.nMonCyl=14;
+for(b=1900;b<2050&&d>0;b++)
+{
+e=Lunar.yearDays(b);
+d-=e;
+this.nMonCyl+=12;
+}
+if(d<0)
+{
+d+=e;
+b--;
+this.nMonCyl-=12;
+}
+this.nYear=b;
+this.nYearCyl=b-1864;
+c=Lunar.leapMonth(b);
+this.bLeap=false;
+for(b=1;b<13&&d>0;b++)
+{
+if(c>0&&b==c+1&&this.bLeap==false)
+{
+--b;
+this.bLeap=true;
+e=Lunar.leapDays(this.nYear);
+}
+else{
+e=Lunar.monthDays(this.nYear,b);
+}
+if(this.bLeap&&b==c+1)
+{
+this.bLeap=false;
+}
+d-=e;
+if(!this.bLeap)
+{
+this.nMonCyl++;
+}
+}
+if(d==0&&c>0&&b==c+1)
+{
+if(this.bLeap)
+{
+this.bLeap=false;
+}
+else{
+this.bLeap=true;
+--b;
+--this.nMonCyl;
+}
+}
+if(d<0)
+{
+d+=e;
+--b;
+--this.nMonCyl;
+}
+this.nMonth=b;
+this.nDay=d+1;
+}
+Lunar.prototype.initFestival=function(){
+var d=Lunar._STATIC;
+this.sY=d._ANIMALS[(this.nYear-4)%12];
+this.sM=d._MONTHCN[this.nMonth];
+this.sD=Lunar.getLunarDay(this.nDay);
+if(this.nDay==1)
+{
+this.sShow=(this.bLeap?'\u95F0':'')+this.sM+'\u6708'+(Lunar.monthDays(this.nYear,this.nMonth)==29?'\u5C0F':'\u5927');
+}
+else{
+this.sShow=this.sM+"\u6708"+this.sD;
+}
+this.ChineseEraYear=d._cyclical(this.nYearCyl);
+this.ChineseEraMonth=d._cyclical(this.nMonCyl);
+this.ChineseEraDay=d._cyclical(this.nDayCyl);
+for(var a=0;a<2;a++)
+{
+var e=d._term(this.nSolarYear,(this.nSolarMonth-1)*2+a);
+if(e==this.nSolarDay)
+{
+this.sSolarTerm=d._SOLARTERM[(this.nSolarMonth-1)*2+a];
+}
+}
+this.oSolarFestival=[];
+for(var a in d._SFTV)
+{
+if(d._SFTV[a].match(/^(\d{2})(\d{2})([\s\*])(.+)$/))
+if(Number(RegExp.$1)==this.nSolarMonth&&Number(RegExp.$2)==this.nSolarDay)
+{
+this.oSolarFestival.push(RegExp.$4+' ');
+}
+}
+var b=(new Date(this.nSolarYear,this.nSolarMonth-1)).getDay();
+for(var a in d._WFTV)
+{
+if(d._WFTV[a].match(/^(\d{2})(\d)(\d)([\s\*])(.+)$/))
+{
+if(Number(RegExp.$1)==this.nSolarMonth)
+{
+var f=Number(RegExp.$2),g=Number(RegExp.$3);
+if((b>g?7:0)+7*(f-1)+g+1-b==this.nSolarDay)
+{
+this.oSolarFestival.push(RegExp.$5+' ');
+}
+}
+}
+}
+this.oLunarFestival=[];
+for(var a in d._LFTV)
+{
+if(d._LFTV[a].match(/^(\d{2})(.{2})([\s\*])(.+)$/))
+{
+if(Number(RegExp.$1)==this.nMonth&&Number(RegExp.$2)==this.nDay)
+{
+this.oLunarFestival.push(RegExp.$4+' ');
+}
+if(Number(RegExp.$1)==1&&Number(RegExp.$2)==0)
+{
+if(this.nSolarDay==31)
+{
+var c=new Lunar(new Date(this.nSolarYear,2-1,1));
+}
+else{
+var c=new Lunar(new Date(this.nSolarYear,this.nSolarMonth-1,this.nSolarDay+1));
+}
+if(c.nDay==1&&c.nMonth==1)
+{
+this.oLunarFestival.push(RegExp.$4+' ');
+}
+}
+}
+}
+};
+Lunar.yearDays=function(a){
+var b,c=348;
+for(b=0x8000;b>0x8;b>>=1)
+c+=(Lunar._STATIC._LUNARINFO[a-1900]&b)?1:0;
+return (c+Lunar.leapDays(a));
+};
+Lunar.leapDays=function(a){
+if(this.leapMonth(a))
+{
+return (Lunar._STATIC._LUNARINFO[a-1900]&0x10000)?30:29;
+}
+else {
+return 0;
+}
+};
+Lunar.leapMonth=function(a){
+return Lunar._STATIC._LUNARINFO[a-1900]&0xf;
+};
+Lunar.monthDays=function(b,a){
+return (Lunar._STATIC._LUNARINFO[b-1900]&(0x10000>>a))?30:29;
+};
+Lunar._STATIC={_cyclical:function(a){
+return this._GAN[a%10]+this._ZHI[a%12];
+},_term:function(a,b){
+var c=new Date((31556925974.7*(a-1900)+this._TERMINFO[b]*60000)+Date.UTC(1900,0,6,2,5));
+return c.getUTCDate();
+},_LUNARINFO:[0x04bd8,0x04ae0,0x0a570,0x054d5,0x0d260,0x0d950,0x16554,0x056a0,0x09ad0,0x055d2,0x04ae0,0x0a5b6,0x0a4d0,0x0d250,0x1d255,0x0b540,0x0d6a0,0x0ada2,0x095b0,0x14977,0x04970,0x0a4b0,0x0b4b5,0x06a50,0x06d40,0x1ab54,0x02b60,0x09570,0x052f2,0x04970,0x06566,0x0d4a0,0x0ea50,0x06e95,0x05ad0,0x02b60,0x186e3,0x092e0,0x1c8d7,0x0c950,0x0d4a0,0x1d8a6,0x0b550,0x056a0,0x1a5b4,0x025d0,0x092d0,0x0d2b2,0x0a950,0x0b557,0x06ca0,0x0b550,0x15355,0x04da0,0x0a5d0,0x14573,0x052d0,0x0a9a8,0x0e950,0x06aa0,0x0aea6,0x0ab50,0x04b60,0x0aae4,0x0a570,0x05260,0x0f263,0x0d950,0x05b57,0x056a0,0x096d0,0x04dd5,0x04ad0,0x0a4d0,0x0d4d4,0x0d250,0x0d558,0x0b540,0x0b5a0,0x195a6,0x095b0,0x049b0,0x0a974,0x0a4b0,0x0b27a,0x06a50,0x06d40,0x0af46,0x0ab60,0x09570,0x04af5,0x04970,0x064b0,0x074a3,0x0ea50,0x06b58,0x055c0,0x0ab60,0x096d5,0x092e0,0x0c960,0x0d954,0x0d4a0,0x0da50,0x07552,0x056a0,0x0abb7,0x025d0,0x092d0,0x0cab5,0x0a950,0x0b4a0,0x0baa4,0x0ad50,0x055d9,0x04ba0,0x0a5b0,0x15176,0x052b0,0x0a930,0x07954,0x06aa0,0x0ad50,0x05b52,0x04b60,0x0a6e6,0x0a4e0,0x0d260,0x0ea65,0x0d530,0x05aa0,0x076a3,0x096d0,0x04bd7,0x04ad0,0x0a4d0,0x1d0b6,0x0d250,0x0d520,0x0dd45,0x0b5a0,0x056d0,0x055b2,0x049b0,0x0a577,0x0a4b0,0x0aa50,0x1b255,0x06d20,0x0ada0],_GAN:["\u7532","\u4E59","\u4E19","\u4E01","\u620A","\u5DF1","\u5E9A","\u8F9B","\u58EC","\u7678"],_ZHI:["\u5B50","\u4E11","\u5BC5","\u536F","\u8FB0","\u5DF3","\u5348","\u672A","\u7533","\u9149","\u620C","\u4EA5"],_ANIMALS:["\u9F20","\u725B","\u864E","\u5154","\u9F99","\u86C7","\u9A6C","\u7F8A","\u7334","\u9E21","\u72D7","\u732A"],_SOLARTERM:["\u5C0F\u5BD2","\u5927\u5BD2","\u7ACB\u6625","\u96E8\u6C34","\u60CA\u86F0","\u6625\u5206","\u6E05\u660E","\u8C37\u96E8","\u7ACB\u590F","\u5C0F\u6EE1","\u8292\u79CD","\u590F\u81F3","\u5C0F\u6691","\u5927\u6691","\u7ACB\u79CB","\u5904\u6691","\u767D\u9732","\u79CB\u5206","\u5BD2\u9732","\u971C\u964D","\u7ACB\u51AC","\u5C0F\u96EA","\u5927\u96EA","\u51AC\u81F3"],_TERMINFO:[0,21208,42467,63836,85337,107014,128867,150921,173149,195551,218072,240693,263343,285989,308563,331033,353350,375494,397447,419210,440795,462224,483532,504758],_DAYNUM:['\u65E5','\u4E00','\u4E8C','\u4E09','\u56DB','\u4E94','\u516D','\u4E03','\u516B','\u4E5D'],_MONTHCN:['','\u6B63','\u4E8C','\u4E09','\u56DB','\u4E94','\u516D','\u4E03','\u516B','\u4E5D','\u5341','\u5341\u4E00','\u814A'],_DAYPREFIX:['\u521D','\u5341','\u5EFF','\u5345','\u3000'],_LFTV:["0101*\u6625\u8282","0115 \u5143\u5BB5\u8282","0505 \u7AEF\u5348\u8282","0707 \u4E03\u5915\u8282","0815 \u4E2D\u79CB\u8282","0909 \u91CD\u9633\u8282","1208 \u814A\u516B\u8282","1224 \u5C0F\u5E74","0100*\u9664\u5915"],_WFTV:["0520 \u6BCD\u4EB2\u8282","0630 \u7236\u4EB2\u8282","1144 \u611F\u6069\u8282"],_SFTV:["0101*\u5143\u65E6","0214 \u60C5\u4EBA\u8282","0308 \u5987\u5973\u8282","0312 \u690D\u6811\u8282","0401 \u611A\u4EBA\u8282","0501 \u52B3\u52A8\u8282","0504 \u9752\u5E74\u8282","0601 \u513F\u7AE5\u8282","0701 \u5EFA\u515A\u8282","0801 \u5EFA\u519B\u8282","0910 \u6559\u5E08\u8282","1001*\u56FD\u5E86\u8282","1225 \u5723\u8BDE\u8282"]};
+Lunar.lunarDateToSolar=function(d,c,b,a){
+var g=0;
+var f=Lunar.leapMonth(d);
+for(var h=1900;h<d;h++)
+{
+g+=Lunar.yearDays(h);
+}
+if(c>f)
+{
+g+=Lunar.leapDays(d);
+}
+else if(a&&(f==c))
+{
+c++;
+}
+for(var e=1;e<c;e++)
+{
+g+=Lunar.monthDays(d,e);
+}
+g+=(b-1);
+return new Date(g*86400000+(+new Date(1900,0,31)));
+};
+Lunar.calLunarDays=function(c,b,a){
+var d=!c||!b?30:Lunar.monthDays(c,b),e=Lunar.leapDays(c,b);
+if(a&&e>0)
+{
+d=e;
+}
+return d;
+};
+Lunar.getLunarMonth=function(a){
+return Lunar._STATIC._MONTHCN[a];
+};
+Lunar.getLunarDay=function(a){
+var b=Math.floor(a/10),c=a%10;
+if(c)
+{
+return Lunar._STATIC._DAYPREFIX[b]+Lunar._STATIC._DAYNUM[c];
+}
+else{
+return ['','\u521D\u5341','\u4E8C\u5341','\u4E09\u5341'][b];
+}
+};
+Lunar.isChangeToLeapMonth=function(b,a){
+var c=arguments.callee._oTodayLunar;
+if(!c)
+{
+c=arguments.callee._oTodayLunar=new Lunar();
+}
+return c.bLeap&&c.nYear==b&&c.nMonth==a;
+};
+(function(a,b){
+var c=_oQmCal={};
+function d(g,f,e)
+{
+var j=new Date(g,f-1,e),i=j.valueOf(),l=new Lunar(j),k={};
+l.initFestival();
+var m=l.oSolarFestival.join(" "),h=l.oLunarFestival.join(" ");
+k.nSolarYear=g;
+k.nSolarDay=e;
+k.nSolarMonth=f;
+if(i>=new Date(1900,0,31)&&i<=new Date(2050,11,31))
+{
+k.nYear=l.nYear;
+k.nMonth=l.nMonth;
+k.nDay=l.nDay;
+k.sLunarDay=l.sD;
+k.sLunarMonth=l.sM;
+k.bLeap=l.bLeap;
+k.sChineseEraYear=l.ChineseEraYear;
+k.sChineseEraMonth=l.ChineseEraMonth;
+k.sChineseEraDay=l.ChineseEraDay;
+k.sYearAnimal=l.sY;
+m&&(k.sSolarFest=m);
+h&&(k.sLunarFest=h);
+}
+else{
+k.nYear="";
+k.nMonth="";
+k.nDay="";
+k.sLunarDay="";
+k.sLunarMonth="";
+k.bLeap="";
+k.sChineseEraYear="";
+k.sChineseEraMonth="";
+k.sChineseEraDay="";
+k.sYearAnimal="";
+}
+return k;
+}
+c.toLunarDay=d;
+c.offsetByDay=function(g,h,f,e){
+var i=new Date(new Date(h,f-1,e).valueOf()+g*24*3600*1000);
+return [i.getFullYear(),i.getMonth()+1,i.getDate()];
+};
+c.getDayWeek=function(g,f,e){
+return "\u65E5\u4E00\u4E8C\u4E09\u56DB\u4E94\u516D".charAt((new Date(g,f-1,e)).getDay());
+};
+c.offsetByMonth=function(g,h,f,e){
+var i=h*12+(f-1)+g,j=[Math.floor(i/12),i%12+1];
+if(e)
+{
+j[2]=Math.min(a.calDays(j[0],j[1]),e);
+}
+return j;
+};
+c.getMonthDays=function(f,e){
+var n=c.offsetByMonth(1,f,e),l=[],m,o=new Date(),k=(new Date(f,e-1,1)).getDay();
+for(var p=k;p>0;p--)
+{
+m=d.apply(this,c.offsetByDay(-p,f,e,1));
+m.nState=-1;
+l.push(m);
+}
+var h=0,p=k,g=false,j=a.calDays(f,e);
+while(!g)
+{
+for(;p<=6;p++)
+{
+if(g)
+{
+m=d(n[0],n[1],++h);
+m.nState=-2;
+}
+else{
+m=d(f,e,++h);
+m.nState=(o.getFullYear()==f&&o.getDate()==h&&e==o.getMonth()+1)?1:0;
+}
+l.push(m);
+if(j==h)
+{
+h=0;
+g=true;
+}
+}
+p=0;
+}
+return l;
+};
+window.QMCalCom=c;
+})(QMCalAdaptor);

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>注册 - QQ安全中心 - 用心守护你的QQ</title>
+		<link rel="shortcut icon" href="images/favicon_02.ico" />
+		<style type="text/css">
+			body{
+				font-size: 14px;
+				color: #666;
+			}
+			*{
+				margin: 0px;
+				padding: 0px;
+				margin: 0px auto;
+			}
+			#zuida{
+				width: 1000px;
+				
+			}
+			#zuo{
+			width: 500px;	
+			float: left;
+			position: fixed;
+			}
+			#you{
+				float: right;
+				width: 500px;
+			
+			}
+			#you ul li{
+				list-style: none;
+				display: inline;
+				vertical-align: middle;
+				margin-left: 30px;
+			}
+			#zhongjian{
+			   float: left;
+			   position: relative;
+			   left: 70px;
+			   top: 50px;
+			}
+			header{
+				float: right;
+			}
+			.ss{
+				position: relative;
+				left: 20px;
+				top: 25px;
+			}
+			.ss2{
+				color: coral;
+			}
+			h1{
+				color: darkturquoise;
+				font-size: 24px;
+			}
+			h2{
+				color: cornflowerblue;
+				font-size: 16px;
+			}
+			#zhonger{
+			   float: right;
+			   position: relative;
+			   left: 10px;
+			   top: 85px;
+			}
+			#kuang{
+			   float: left;
+			   position: relative;
+			   left: 50px;
+			   top: 100px;
+			}
+			input{
+				width: 450px;
+				height: 50px;
+				margin-top: 50px;
+				border-radius: 10px;
+				box-shadow: none;
+				border: 1px solid  #ccc;
+				color: #999;
+				padding-left: 10px;
+			}
+			select{
+				width: 100px;
+				height: 50px;
+				margin-top: 50px;
+				border-radius: 10px;
+				box-shadow: none;
+				border: 1px solid #ccc;
+				padding-left: 5px;
+				color: #999;
+			}
+			.ss3{
+				width: 300px;
+				height: 50px;
+				margin-top: 50px;
+				position: relative;
+			   left: 50px;
+			   top: 0px;
+			}
+			#aa{
+				width: 450px;
+				height: 50px;
+				margin-top: 50px;
+				color: #ffffff;
+				background-color: #6495ED;
+				text-align: center;
+				vertical-align: middle;
+				line-height: 50px;
+				content: '';
+				display: block;
+				clear: both;
+				cursor: pointer;
+			}
+			.aa2{
+				width: 15px;
+				height: 15px;
+				margin-top: 52px;		
+				margin-right: 10px;	
+			}
+			#dibu{
+				position: relative;
+			   left: 30px;
+			   top: 60px;
+			}
+		</style>
+		<script type="text/javascript">
+			function pan(){
+				var zh = document.getElementById("name").value;
+				var shou = document.getElementById("shou").value;
+				if(zh == ""){
+					alert("昵称不得为空");
+					return false;
+				}
+				if(shou == ""){
+					alert("手机号不得为空");
+					return false;
+				}
+				return true;
+			}
+		</script>
+	</head>
+	<body>
+		<form action="deng.html" method="get" onsubmit="return pan()">
+			
+		<div id="zuida">
+			<div id="zuo"><p><img src="img/2.png" width="500" height="750px"></p></div>
+			<div id="you">
+				<header>
+			    <ul>
+				<li class="ss"><img src="img/000.jpg"></li>
+				<li>邮箱账号</li>
+				<li>简体中文</li>
+				<li>意见反馈</li>
+			    </ul>
+				</header>
+				<div id="zhongjian">
+					<h1>欢迎注册QQ</h1>
+					<h2>每一天，乐在沟通</h2>
+				</div>
+				<div id="zhonger">
+					<h2 class="ss2">免费靓号</h2>
+				</div>
+				<div id="kuang">
+         		   <ul>
+         		   	<li><input type="text" placeholder="昵称" id="name"></li>
+         		   	<li><select name="hehe" placeholder="+86">
+         		   		<option>中国+86</option>
+         		   		<option>台湾+886</option>
+         		   	</select><input type="text" placeholder="手机号" class="ss3" id="shou"></li>
+         		   	<li><input type="submit" id="aa" value="立即注册" /></li>
+         		   	<li><input type="checkbox" class="aa2">同时开通QQ空间<br /></li>
+         		   	<li><input type="checkbox" class="aa2">我已阅读并同意相关服务条款和隐私政策<br />  </li>
+         		   </ul>	
+         		   	<div id="dibu">
+                     <p>Copyright &copy;" 1998-2017Tencent All Rights Reserved</p>					
+				</div>
+				</div>
+			
+			</div>
+		</div>
+		</form>
+	</body>
+</html>

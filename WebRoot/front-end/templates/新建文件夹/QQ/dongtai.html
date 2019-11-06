@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>动态</title>
+		<link rel="shortcut icon" href="images/favicon_01.ico" />
+		<style type="text/css">
+			*{
+				margin: 0px;
+				padding: 0px;
+			}
+		header{
+		    margin:0px auto;
+		    width:1000px;
+		    text-align: center;
+		    height: 300px;
+		background-image: url(img/news_banner_0720.jpg);
+		    background-size: 1000px;
+		}
+		header>div:first-of-type{
+		    width:1000 px;
+		    height:75px;
+		    margin: auto;
+		    position: relative;
+		
+		}
+		ul{
+		    list-style: none;
+		}
+		ul>li{
+		    display: inline-block;
+		}
+		a{
+		    text-decoration: none;
+		}
+		header>div:first-of-type>a,ul{
+		    float: left;
+		}
+		header a{
+		    color: #333;
+		}
+		header>ul{
+			background: linear-gradient(to bottom,#000,rgba(0,0,0,0.1),rgba(0,0,0,0));
+		}
+		
+		header>div{
+			background: linear-gradient(to bottom,#000,rgba(0,0,0,0.1),rgba(0,0,0,0));
+		}
+		.shou{
+		    width:468px;
+		    height:75px;
+		    list-style: none;
+		    text-align: center;
+		    margin:0;
+		    padding-left: 10px;
+		}
+		.shou li{
+		    width:76px;
+		    height: 75px;
+		    font-size:1.125em;
+		    line-height:75px;
+		    float: left;
+		}
+		.shou li:hover a{
+		    color: #fff;
+		}
+		.shou li:hover{
+		    width:76px;
+		    height: 75px;
+		    cursor: pointer;
+		    background-color: #12b7f5;
+		}
+		header>div>div{
+		    float: right;
+		    width:320px;
+		    height:63px;
+		    font-size:0.8em;
+		}
+		header div:last-of-type>a{
+		    margin-top: 20px;
+		    float:left;
+		    line-height:55px;
+		}
+		.hui{
+		    width:221px;
+		    height:46px;
+		    float: left;
+		    margin:0;
+		    padding:0;
+		}
+		.hui a{
+		    color: #888888;
+		}
+		.hui>li{
+		    width:73px;
+		    height:16px;
+		    float: left;
+		    line-height:46px;
+		}
+		header>div:nth-last-child(2)>div>a:last-of-type{
+		    display: inline-block;
+		    width:188px;
+		    height:16px;
+		    margin-top:-20px;
+		    text-align: right;
+		    padding:0;
+		    color: #888888;
+		}
+		#neirong{
+			width: 750px;
+			height: 510px;
+		    margin: 0px auto;
+		}
+		#neirong ul li{
+			float: left;
+		}
+		.yi:hover{
+			background-color:#0AA7FF ;
+		}
+	
+		footer>div div a:hover {
+    color: #12b7f5;
+}
+.hou{
+    float: left;
+    width:150px;
+    margin-bottom:10px;
+}
+footer{
+    width:1000px;
+    height:350px;
+    background-color: #2a2a2a;
+    text-align: center;
+    margin:0px auto;
+    font-size: 14px;
+}
+
+footer>div:first-of-type{
+    width:960px;
+    height:205px;
+    padding-top:50px;
+    margin:0 auto;
+    text-align: left;
+}
+footer>div div{
+    float: left;
+}
+footer h3{
+    font-size:14px;
+    color: #666;
+    height:25px;
+}
+footer>div>div:first-of-type>h3:first-of-type{
+    width:510px;
+    height:50px;
+    margin:0;
+}
+footer>div div a{
+    color: #979797;
+    display: inline-block;
+    text-align: center;
+    margin-right:30px;
+    width:80px;
+}
+footer>div div a:hover {
+    color: #12b7f5;
+}
+.hou{
+    float: left;
+    width:150px;
+    margin-bottom:10px;
+}
+footer ul>li{
+    display: block;
+    padding:0;
+}
+footer ul>li>a{
+    color: #979797;
+}
+footer ul>li>a:hover{
+    color: #f3f3f3;
+}
+footer ul{
+    padding:0;
+    margin:0;
+}
+.hou h3{
+    width:150px;
+    height:25px;
+    margin:0;
+}
+.hou li a{
+    text-align: left;
+    width:150px;
+    height:21px;
+    margin:0;
+}
+hr{
+    border:1px solid #888;
+}
+footer p{
+    color: #979797;
+    line-height:20px;
+}
+.yi{
+	color: #FFFFFF;
+	width: 250px;
+	height: 215px;
+	background-image: url(img/alb_1.jpg);
+	background-size: 250px;
+	background-repeat: no-repeat;
+}
+.yi:hover div{
+	display: inline-block;
+}
+.yi>div{
+	display: none;
+	width: 250px;
+	height: 215px;
+	background-color: rgba(0,185,255,0.5);
+}
+.yi div{
+	text-align: center;
+
+}
+.yi h3,h4{
+    position: relative;
+    top: 80px;
+}
+.er{
+	color: #FFFFFF;
+	width: 250px;
+	height: 215px;
+	background-image: url(img/alb_2.jpg);
+	background-size: 250px;
+	background-repeat: no-repeat;
+}
+.er:hover div{
+	display: inline-block;
+}
+.er>div{
+	display: none;
+	width: 250px;
+	height: 215px;
+	background-color: rgba(0,185,255,0.5);
+}
+.er div{
+	text-align: center;
+
+}
+.er h3,h4{
+    position: relative;
+    top: 80px;
+}
+.san{
+	color: #FFFFFF;
+	width: 250px;
+	height: 215px;
+	background-image: url(img/alb_3.jpg);
+	background-size: 250px;
+	background-repeat: no-repeat;
+}
+.san:hover div{
+	display: inline-block;
+}
+.san>div{
+	display: none;
+	width: 250px;
+	height: 215px;
+	background-color: rgba(0,185,255,0.5);
+}
+.san div{
+	text-align: center;
+
+}
+.san h3,h4{
+    position: relative;
+    top: 80px;
+}
+.si{
+	color: #FFFFFF;
+	width: 250px;
+	height: 215px;
+	background-image: url(img/alb_4.jpg);
+	background-size: 250px;
+	background-repeat: no-repeat;
+}
+.si:hover div{
+	display: inline-block;
+}
+.si>div{
+	display: none;
+	width: 250px;
+	height: 215px;
+	background-color: rgba(0,185,255,0.5);
+}
+.si div{
+	text-align: center;
+
+}
+.si h3,h4{
+    position: relative;
+    top: 80px;
+}
+.wu{
+	color: #FFFFFF;
+	width: 250px;
+	height: 215px;
+	background-image: url(img/alb_5.jpg);
+	background-size: 250px;
+	background-repeat: no-repeat;
+}
+.wu:hover div{
+	display: inline-block;
+}
+.wu>div{
+	display: none;
+	width: 250px;
+	height: 215px;
+	background-color: rgba(0,185,255,0.5);
+}
+.wu div{
+	text-align: center;
+
+}
+.wu h3,h4{
+    position: relative;
+    top: 80px;
+}
+.liu{
+	color: #FFFFFF;
+	width: 250px;
+	height: 215px;
+	background-image: url(img/alb_6.jpg);
+	background-size: 250px;
+	background-repeat: no-repeat;
+}
+.liu:hover div{
+	display: inline-block;
+}
+.liu>div{
+	display: none;
+	width: 250px;
+	height: 215px;
+	background-color: rgba(0,185,255,0.5);
+}
+.liu div{
+	text-align: center;
+
+}
+.liu h3,h4{
+    position: relative;
+    top: 80px;
+}
+#di{
+	position: relative;
+	top: 30px;
+}
+ul>li>div>h3{
+	line-height: 50px;
+}
+
+		</style>
+	</head>
+	<body>
+		<header>
+    <div>
+        <a href="#" style="display: inline-block; margin-top: 12px;"><img src="images/QQ.png"></a>
+        <ul class="shou">
+            <li><a href="#" id="shou">首页</a></li>
+            <li><a href="lei.html">下载</a></li>
+            <li><a href="#">动态</a></li>
+        </ul>
+        <div>
+            <a href="#"><img src="images/zhuce.png" width="96"></a>
+            <ul class="hui">
+                <li><a href="#">QQ会员</a></li>
+                <li><a href="#">QQ安全</a></li>
+                <li><a href="deng.html">登录</a></li>
+            </ul>
+            <a href="#" style="margin-top: -25px; margin-left: 20px;">当前在线人数：220,459,952</a>
+        </div>
+    </div>
+
+</header>
+
+<p style="padding-left: 150px;font-size: 18px; margin-top: 100px;">所有专题</p>
+
+    <div id="neirong">
+    <ul style="cursor: pointer;">
+    	<li class="yi">
+    		<div>
+    			<h3><a href="anquan.html" style="text-decoration: none; color: #fff;">QQ音视频</a></h3>
+    			<h4>随时随地随心沟通</h4>
+    		</div>
+    	</li>
+    	<li class="er">	
+    		<div>
+    			<h3>八大办公技巧</h3>
+    			<h4>你做到了吗</h4>
+    		</div></li>
+    	<li class="san">
+    		<div>
+    			<h3>QQ音频会议</h3>
+    			<h4>支持多人语音，多人视频</h4>
+    		</div></li>
+    	<li class="si">
+             <div>
+    			<h3>QQ传文件</h3>
+    			<h4>支持多人语音，多人视频</h4>
+    		</div>
+    	</li>
+    	<li class="wu">
+    		<div>
+    			<h3>QQ概念视频</h3>
+    			<h4>支持多人语音，多人视频</h4>
+    		</div></li>
+    	<li class="liu">
+    		   <div>
+    			<h3>兴趣部落</h3>
+    			<h4>支持多人语音，多人视频</h4>
+    		</div>
+    	</li>
+    </ul>
+    </div>
+<footer>
+    <div>
+        <div>
+            <h3>
+                了解热门产品
+            </h3>
+            <a href="">
+                <img src="images/shouJi.png">
+                QQ 手机版
+            </a>
+            <a href=""><img src="images/PC.png" >QQ PC版</a>
+            <a href=""><img src="images/MAC.png">QQ Mac版</a>
+            <a href=""><img src="images/PAC.png">QQ Pad版</a>
+        </div>
+        <div class="hou">
+            <h3>QQ安全</h3>
+            <ul>
+                <li><a href="#">安全中心</a></li>
+                <li><a href="#">冻结账号</a></li>
+                <li><a href="#">举报恶意行为</a></li>
+                <li><a href="#">恢复好友和群</a></li>
+            </ul>
+        </div>
+        <div class="hou">
+            <h3>帮助反馈</h3>
+            <ul>
+                <li><a href="#">腾讯客服</a></li>
+                <li><a href="#">反馈问题</a></li>
+                <li><a href="#">腾讯微博</a></li>
+                <li><a href="#">新浪微博</a></li>
+            </ul>
+        </div>
+        <div class="hou">
+            <h3>QQ安全</h3>
+            <ul>
+                <li><a href="#">兴趣部落</a></li>
+                <li><a href="#">QQ群</a></li>
+                <li><a href="#">QQ音乐</a></li>
+                <li><a href="#">QQ浏览器</a></li>
+                <li><a href="xing.html">星钻</a></li>
+                <li><a href="#">腾讯视频</a></li>
+                <li><a href="#">腾讯体验中心</a></li>
+                <li><a href="#">腾讯电脑管家</a></li>
+            </ul>
+        </div>
+        <hr>
+    </div>
+    <div id="di">
+    <p align="center">Copyright &copy; 1998-2017 Tencent. All Rights Reserved</p>
+    <p align="center">腾讯公司 版权所有</p>
+    </div>
+</footer>
+	</body>
+</html>

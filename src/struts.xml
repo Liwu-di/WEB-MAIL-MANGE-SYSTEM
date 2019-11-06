@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+ 
+<struts>
+    <!-- //基础配置 -->
+    <constant name="struts.custom.i18n.resources" value="struts"></constant>
+    <constant name="struts.enable.DynamicMethodInvocation" value="false" />
+    <constant name="struts.devMode" value="true" />
+    <constant name="struts.i18n.reload" value="true" />
+    <constant name="struts.configuration.xml.reload" value="true" ></constant>
+	 <!-- setting max size of upload file is 1000MB -->
+    <package name="main" namespace="/" extends="struts-default">
+<!--//异常配置
+        <default-action-ref name="index" />
+        <global-results>
+            <result name="error">/error.jsp</result>
+        </global-results>
+        <global-exception-mappings>
+            <exception-mapping exception="java.lang.Exception" result="error"/>
+        </global-exception-mappings>  -->
+    	<action name="login" class="action.LoginAction">
+    		<result name="success">index.jsp</result>
+    		<result name="error">login-regist-forgetPass.jsp</result>
+    	</action>
+    	<!-- 不管注册是否成功，都会转到登录界面，然后提示是否成功 -->
+    	<action name="UserRegist" class="action.UserRegist">
+    		<result name="success">login-regist-forgetPass.jsp</result>
+    		<result name="error">login-regist-forgetPass.jsp</result>
+    	</action>
+    	<action name="forget" class="action.UserForget">
+    		<result name="success">login-regist-forgetPass.jsp</result>
+    		<result name="error">forget_password.jsp</result>
+    	</action>
+    	<action name="information" class="action.UserInformation">
+    		<result name="success">addemail.jsp</result>
+    		<result name="error">admintitile.jsp</result>
+    	</action>
+    	<action name="mailbox" class="action.AddBox">
+    		<result name="success">addcontact.jsp</result>
+    		<result name="error">addemail.jsp</result>
+    	</action>
+    	<action name="addcontact" class="action.AddContact">
+    		<result name="success">write.jsp</result>
+    		<result name="error">addcontact.jsp</result>
+    	</action>
+		
+		<action name="upload" class="action.upload">
+    		<result name="success">write.jsp</result>
+    		<result name="error">addcontact.jsp</result>
+    	</action>
+		 <action name="send" class="action.SendEmail">
+    		<result name="success">outbox.jsp</result>
+    		<result name="error">write.jsp</result>
+    	</action>
+    	<!-- 刷新收件箱，先用java代码收邮件存数据库，再用json发送到前端 -->
+		 <action name="in" class="com.athena.mail.client.MailTest">
+    		<result name="success">inbox.jsp</result>
+    	</action>
+    	
+    	<action name="caogao" class="action.caogao">
+    		<result name="success">caogao.jsp</result>
+    	</action>
+    	<action name="read" class="action.read">
+	    		<result name="success">read.jsp
+	    		</result>
+	    	</action>
+	    </package>
+	    <package name=" jsondemo" namespace="/" extends="json-default">
+	    	<action name="userJson" class="action.UserJson">
+	    		<result type="json">
+	    		</result>
+	    	</action>
+	    	<action name="inboxJson" class="action.inboxJson">
+	    		<result type="json">
+	    		</result>
+	    	</action>
+	    	<action name="outboxJson" class="action.outboxJson">
+	    		<result type="json">
+	    		</result>
+	    	</action>
+	    	<action name="caogaoJson" class="action.caogaoJson">
+	    		<result type="json">
+	    		</result>
+	    	</action>
+	    	
+	    </package>
+    
+
+
+</struts>
+
