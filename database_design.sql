@@ -44,7 +44,7 @@ CREATE TABLE `email` (
 
 LOCK TABLES `email` WRITE;
 /*!40000 ALTER TABLE `email` DISABLE KEYS */;
-INSERT INTO `email` VALUES ('1299308435@qq.com','xgxtifliafveijae','pop.qq.com','smtp.qq.com','111','995','25','156156'),('154125960@qq.com','123456aa','pop.qq.cok','smtp.qq.com','111','110','25','165165'),('15662397181@163.com','liwudi123','pop.163.com','smtp.163.com','111','110','25','31564');
+INSERT INTO `email` VALUES ('1299308435@qq.com','','pop.qq.com','smtp.qq.com','111','995','25','156156'),('154125960@qq.com','123456aa','pop.qq.com','smtp.qq.com','111','110','25','165165'),('15662397181@163.com','','pop.163.com','smtp.163.com','111','110','25','31564');
 /*!40000 ALTER TABLE `email` ENABLE KEYS */;
 UNLOCK TABLES;
 
